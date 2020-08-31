@@ -90,16 +90,6 @@ int main()
 			cout << "客户端信息:" << recv_buf << endl;
 		}
 		string recv_str = recv_buf;
-		string recv_device = recv_str.substr(12, 2);
-		int device = stoi(recv_device, 0, 16);
-		if (device != 9)
-		{
-			return -1;
-		}
-		if (recv_str.size() <= 14)
-		{
-			return 0;
-		}
 		for (int index = 0; index < recv_str.size(); index++)
 		{
 			if (recv_str[index] == ' ')
@@ -107,6 +97,17 @@ int main()
 				recv_str.erase(index, 1);
 				index--;
 			}
+		}
+		string recv_device = recv_str.substr(12, 2);
+		int device = stoi(recv_device, 0, 16);
+		if (device != 9)
+		{
+			getchar();
+			return -1;
+		}
+		if (recv_str.size() <= 14)
+		{
+			return 0;
 		}
 		string recv_code = recv_str.substr(14, 2);
 		int function = stoi(recv_code, 0, 16);

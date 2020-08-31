@@ -7,7 +7,7 @@ void WriteCoilCommand(int &m, int &n, vector<int>&val)
 	{
 		cout << "ÇëÊäÈë¼Ä´æÆ÷ÆðÊ¼µØÖ·£º";
 		cin >> m;
-		if (m > 247)
+		if (m > 2000)
 		{
 			cout << "¼Ä´æÆ÷Ô½½ç" << endl;
 			continue;
@@ -18,7 +18,7 @@ void WriteCoilCommand(int &m, int &n, vector<int>&val)
 	{
 		cout << "ÇëÊäÈë¼Ä´æÆ÷ÊýÁ¿£º";
 		cin >> n;
-		if (m + n > 247)
+		if (m + n > 2000)
 		{
 			cout << "¼Ä´æÆ÷Ô½½ç" << endl;
 			continue;
