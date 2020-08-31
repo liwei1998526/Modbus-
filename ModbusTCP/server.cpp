@@ -125,7 +125,13 @@ int main()
 			memset(send_buf_code, 0, sizeof(send_buf_code));
 			strcpy(send_buf, FUNCTION03(recv_str, send_buf_code, m, val));
 		}
-		else if (function != 1&&function != 3)
+		if (function == 16)
+		{
+			char *send_buf_code = new char(100);
+			memset(send_buf_code, 0, sizeof(send_buf_code));
+			strcpy(send_buf, FUNCTION10(recv_str, send_buf_code, m, val));
+		}
+		else if (function != 1 && function != 3 && function != 16)
 		{
 			string send;
 			for (int i = 0; i < 18; i++)
