@@ -13,7 +13,7 @@ char *FUNCTION03(char *s, char* send_buf, int k, vector<int>val)
 	int start_add = stoi(recv_start_add, 0, 16);
 	string recv_digit = recv_str.substr(20, 4);
 	int digit = stoi(recv_digit, 0, 16);
-	if ((start_add + digit) > (k + val.size() - 1) || start_add < k - 1)
+	if ((start_add + digit) > (k + val.size()) || start_add < k )
 	{
 		for (int i = 0; i < 17; i++)
 		{
