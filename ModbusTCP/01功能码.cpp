@@ -37,13 +37,13 @@ char *FUNCTION01(char *s, char* send_buf, int k, vector<int>val)
 		{
 			if (start_add + DIFF <= digit + start_add)
 			{
-				for (int n = start_add + DIFF - k; n > start_add + DIFF - 8 - k - 1; n--)
+				for (int h = start_add + DIFF - k - 1; h > start_add + DIFF - 8 - k - 1; h--)
 				{
-					if (n >= val.size())
+					if (h >= val.size())
 					{
 						break;
 					}
-					reg = reg + to_string(val[n]);
+					reg = reg + to_string(val[h]);
 				}
 				int DE = stoi(reg, 0, 2);
 				string DATA = DEtoHEX(DE);
@@ -63,7 +63,7 @@ char *FUNCTION01(char *s, char* send_buf, int k, vector<int>val)
 			}
 			else if (start_add + DIFF > digit + start_add)
 			{
-				for (int n = start_add + digit - k; n > start_add + DIFF - 8; n--)
+				for (int n = start_add + digit - k-1; n >= start_add + DIFF - 8-k; n--)
 				{
 					if (n >= val.size())
 					{
