@@ -68,6 +68,7 @@
     <ClCompile Include="01功能码.cpp" />
     <ClCompile Include="03功能码.cpp" />
     <ClCompile Include="10to16.cpp" />
+    <ClCompile Include="10功能码.cpp" />
     <ClCompile Include="server.cpp" />
     <ClCompile Include="寄存器创建.cpp" />
     <ClCompile Include="线圈创建.cpp" />

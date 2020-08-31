@@ -36,7 +36,7 @@ void WriteRigisterCommand(int &m, int &n, vector<int>&val)
 			{
 				cout << "请输入第" << k << "个寄存器的值:";
 				cin >> y;
-				if (y > 255)
+				if (y > 65535)
 				{
 					cout << "输入值不规范" << endl;
 					continue;

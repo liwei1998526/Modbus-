@@ -33,6 +33,9 @@
     <ClCompile Include="03功能码.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="10功能码.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Modbus.h">
