@@ -49,7 +49,7 @@ void WriteCoilCommand(int &m, int &n, vector<int>&val)
 		break;
 	}
 	int j = 0;
-	for (int i = m - 1; i < m + n - 1; i++)
+	for (int i = m; i < m + n; i++)
 	{
 		cout << "register" << " " << i << ":" << val[j] << endl;
 		j++;
