@@ -64,6 +64,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="01功能码.cpp" />
+    <ClCompile Include="10to16.cpp" />
+    <ClCompile Include="server.cpp" />
+    <ClCompile Include="寄存器创建.cpp" />
+    <ClCompile Include="线圈创建.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Modbus.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
