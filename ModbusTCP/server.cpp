@@ -92,7 +92,7 @@ int main()
 		string recv_str = recv_buf;
 		for (int index = 0; index < recv_str.size(); index++)
 		{
-			if (recv_str[index] == ' ')
+			if (recv_str[index] == 0x20)
 			{
 				recv_str.erase(index, 1);
 				index--;
@@ -117,26 +117,39 @@ int main()
 			memset(send_buf_code, 0, sizeof(send_buf_code));
 			//send_buf_code1= FUNCTION01(recv_buf, send_buf_code, m, val);
 			//FUNCTION01(recv_buf, send_buf_code, m, val);
-			strcpy(send_buf, FUNCTION01(recv_buf, send_buf_code, m, val));
+			strcpy(send_buf, FUNCTION01(recv_str, send_buf_code, m, val));
 		}
 		if (function == 3)
 		{
 			char *send_buf_code = new char(100);
 			memset(send_buf_code, 0, sizeof(send_buf_code));
-			strcpy(send_buf, FUNCTION03(recv_buf, send_buf_code, m, val));
+			strcpy(send_buf, FUNCTION03(recv_str, send_buf_code, m, val));
 		}
 		else if (function != 1&&function != 3)
 		{
-			for (int i = 0; i < 17; i++)
+			string send;
+			for (int i = 0; i < 18; i++)
 			{
-				send_buf[i] = recv_buf[i];
+				send += recv_str[i];
 			}
-			send_buf[11] = '3';
-			send_buf[14] += 8;
-			send_buf[16] = '0';
-			send_buf[17] = '1';
-			cout << "功能码异常" << endl;
+			send[11] = '3';
+			send[14] += 8;
+			send[16] = '0';
+			send[17] = '1';
+			int space = 2;
+			while (space <= send.size())
+			{
+				send.insert(space, " ");
+				space += 3;
+			}
+			int b;
+			for (b = 0; b < send.size(); b++)
+			{
+				send_buf[b] = send[b];
+			}
+			cout << "无可用功能码" << endl;
 			cout << "响应报文为：" << send_buf << endl;
+
 		}
 		//cout << "请输入回复信息:";
 		//cin >> send_buf;
