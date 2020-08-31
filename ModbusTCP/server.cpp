@@ -43,7 +43,7 @@ int main()
 	//填充服务端信息
 	server_addr.sin_family = AF_INET;
 	server_addr.sin_addr.S_un.S_addr = htonl(INADDR_ANY);
-	server_addr.sin_port = htons(502);
+	server_addr.sin_port = htons(526);
 	//创建套接字
 	s_server = socket(AF_INET, SOCK_STREAM, 0);
 	if (bind(s_server, (SOCKADDR *)&server_addr, sizeof(SOCKADDR)) == SOCKET_ERROR)
@@ -118,7 +118,13 @@ int main()
 			//FUNCTION01(recv_buf, send_buf_code, m, val);
 			strcpy(send_buf, FUNCTION01(recv_buf, send_buf_code, m, val));
 		}
-		else if (function != 1)
+		if (function == 3)
+		{
+			char *send_buf_code = new char(100);
+			memset(send_buf_code, 0, sizeof(send_buf_code));
+			strcpy(send_buf, FUNCTION03(recv_buf, send_buf_code, m, val));
+		}
+		else if (function != 1&&function != 3)
 		{
 			for (int i = 0; i < 17; i++)
 			{
