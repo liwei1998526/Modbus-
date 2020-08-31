@@ -31,7 +31,7 @@ char *FUNCTION03(char *s, char* send_buf, int k, vector<int>val)
 	{
 		string reg;
 		string DATA_n;
-		for (int n = start_add + digit - k; n > start_add - k; n--)
+		for (int n = start_add + digit - k-1; n > start_add - k-1; n--)
 		{
 			if (n >= val.size())
 			{
