@@ -32,7 +32,15 @@ char *FUNCTION01(char *s, char* send_buf, int k, vector<int>val)
 		string reg;
 		int p = 0;
 		int DIFF = 8;
-		int v = (digit / 8) + 1;
+		int v;
+		if (digit % 8 == 0 && digit >= 8)
+		{
+			v = digit / 8;
+		}
+		else
+		{
+			v = (digit / 8) + 1;
+		}
 		while (v > 0)
 		{
 			if (start_add + DIFF <= digit + start_add)
@@ -85,7 +93,7 @@ char *FUNCTION01(char *s, char* send_buf, int k, vector<int>val)
 				ALL_DATA.push_back(DATA);
 			}
 			DIFF += 8;
-			v--;
+			--v;
 		}
 		string str_data = "";
 		for (int s = 0; s < ALL_DATA.size(); s++)
