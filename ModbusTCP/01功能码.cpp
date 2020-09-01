@@ -79,7 +79,7 @@ char *FUNCTION01(string recv_str, char* send_buf, int k, vector<int>val)
 			}
 			else if (start_add + DIFF > digit + start_add)
 			{
-				for (int n = start_add + digit - k-1; n >= start_add + DIFF - 8-1; n--)
+				for (int n = start_add + digit - k - 1; n > start_add + DIFF - 8 - k - 1; n--)
 				{
 					if (n >= val.size())
 					{
