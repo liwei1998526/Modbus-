@@ -37,7 +37,7 @@ char *FUNCTION10(string recv_str, char* send_buf, int k, vector<int>&val)
 	}
 	else
 	{
-		int n = 28;
+		int n = 26;
 		while(n < recv_str.size())
 		{
 			string DATA_N = recv_str.substr(n, 4);
@@ -59,7 +59,7 @@ char *FUNCTION10(string recv_str, char* send_buf, int k, vector<int>&val)
 		string len = DEtoHEX(length);
 		while (1)
 		{
-			if (len.size() != 4)
+			if (len.size() < 2)
 			{
 				len = "0" + len;
 				continue;

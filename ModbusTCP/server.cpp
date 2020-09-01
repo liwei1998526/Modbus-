@@ -170,6 +170,7 @@ int main()
 				space += 3;
 			}
 			int b;
+			memset(send_buf, 0, sizeof(send_buf));
 			for (b = 0; b < send.size(); b++)
 			{
 				send_buf[b] = send[b];
