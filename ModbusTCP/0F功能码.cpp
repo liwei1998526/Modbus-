@@ -37,7 +37,7 @@ char *FUNCTION0F(string recv_str, char* send_buf, int k, vector<int>&val)
 	}
 	else
 	{
-		int n = 28;
+		int n = 26;
 		while (n < recv_str.size())
 		{
 			int p = 1;
