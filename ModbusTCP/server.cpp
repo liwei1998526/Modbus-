@@ -1,6 +1,7 @@
 #include<iostream>
 #include<winsock.h>
 #include<string>
+#include<windows.h>
 #include"Modbus.h"
 #pragma comment(lib,"ws2_32.lib")
 using namespace std;
@@ -33,6 +34,8 @@ int main()
 	memset(send_buf, 0, sizeof(send_buf));
 	char recv_buf[100];
 	memset(recv_buf, 0, sizeof(recv_buf));
+	UINT8 recv_buf_16[100];
+	memset(recv_buf_16, 0, sizeof(recv_buf_16));
 	//定义服务端套接字，接受请求套接字
 	SOCKET s_server;
 	SOCKET s_accept;
@@ -79,7 +82,19 @@ int main()
 	//接收数据
 	while (1)
 	{
-		recv_len = recv(s_accept, recv_buf, 100, 0);
+		recv_len = recv(s_accept,(char*)recv_buf_16, 100, 0);
+		if (recv_buf_16[0] = '0')
+		{
+			for (int p = 0; p < recv_len; p++)
+			{
+				recv_buf[p] = recv_buf_16[p];
+			}
+		}
+		else
+		{
+			strcpy(recv_buf, hex2str(recv_buf_16, recv_len));
+		}
+
 		if (recv_len < 0)
 		{
 			cout << "接受失败！" << endl;

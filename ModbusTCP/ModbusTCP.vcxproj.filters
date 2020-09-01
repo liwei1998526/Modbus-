@@ -42,6 +42,9 @@
     <ClCompile Include="10to02.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="HEXtoString.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Modbus.h">
