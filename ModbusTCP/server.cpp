@@ -83,7 +83,7 @@ int main()
 	while (1)
 	{
 		recv_len = recv(s_accept,(char*)recv_buf_16, 100, 0);
-		if (recv_buf_16[0] = '0')
+		if (recv_buf_16[0] == '0')
 		{
 			for (int p = 0; p < recv_len; p++)
 			{
