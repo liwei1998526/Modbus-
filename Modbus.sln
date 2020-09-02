@@ -5,6 +5,8 @@ VisualStudioVersion = 12.0.30501.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ModbusTCP", "ModbusTCP\ModbusTCP.vcxproj", "{D1087E57-DF8E-4CB9-8DD3-2D8B026D1BDC}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ModbusRTU", "ModbusRTU\ModbusRTU.vcxproj", "{00170E9A-F324-46FF-9FB5-6EB6B24B3829}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -15,6 +17,10 @@ Global
 		{D1087E57-DF8E-4CB9-8DD3-2D8B026D1BDC}.Debug|Win32.Build.0 = Debug|Win32
 		{D1087E57-DF8E-4CB9-8DD3-2D8B026D1BDC}.Release|Win32.ActiveCfg = Release|Win32
 		{D1087E57-DF8E-4CB9-8DD3-2D8B026D1BDC}.Release|Win32.Build.0 = Release|Win32
+		{00170E9A-F324-46FF-9FB5-6EB6B24B3829}.Debug|Win32.ActiveCfg = Debug|Win32
+		{00170E9A-F324-46FF-9FB5-6EB6B24B3829}.Debug|Win32.Build.0 = Debug|Win32
+		{00170E9A-F324-46FF-9FB5-6EB6B24B3829}.Release|Win32.ActiveCfg = Release|Win32
+		{00170E9A-F324-46FF-9FB5-6EB6B24B3829}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
