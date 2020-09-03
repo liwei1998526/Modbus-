@@ -64,7 +64,7 @@ HANDLE InitCOM(LPCTSTR Port, int baud_rate, BYTE date_bits, BYTE stop_bit, BYTE 
 		dcb.fParity = TRUE;		//奇偶校验开启
 		dcb.Parity = parity;	//校验模式
 	}
-	cout << SetCommState(hCom, &dcb) << endl;
+	cout <<"端口为：com"<<SetCommState(hCom, &dcb) << endl;
 	PurgeComm(hCom, PURGE_RXABORT | PURGE_TXCLEAR | PURGE_RXCLEAR | PURGE_TXABORT);//清除缓存
 	//设置串口读写时间
 	COMMTIMEOUTS CommTimeOuts;
@@ -99,6 +99,7 @@ bool SendData(HANDLE m_hComm, char* data, int len)
 	PurgeComm(m_hComm, PURGE_RXCLEAR | PURGE_TXCLEAR);
 	//写串口
 	DWORD dwWrite = 0;
+	cout << "请求报文：" << data << endl;
 	DWORD dwRet = WriteFile(m_hComm, data, len, &dwWrite, NULL);
 	//清空串口
 	PurgeComm(m_hComm, PURGE_RXCLEAR | PURGE_TXCLEAR);
@@ -151,7 +152,11 @@ void MSleep(long lTime)
 int main()
 {
 	string COMM;
-	cin >> COMM;
+	cout << "输入端口号为：";
+	string com = "com";
+	string how;
+	cin >> how;
+	COMM = com + how;
 	HANDLE H_Com = InitCOM((LPCTSTR)COMM.c_str(), 9600, 8, 0, 1);
 	if (H_Com == INVALID_HANDLE_VALUE)
 	{
@@ -172,7 +177,41 @@ int main()
 		PurgeComm(H_Com, PURGE_RXABORT | PURGE_TXCLEAR | PURGE_RXCLEAR | PURGE_TXABORT);//清除缓存
 		while (1)
 		{
-			if (true == SendData(H_Com, "ok", 2))
+			char data[256];
+			memset(data, 0, sizeof(data));
+			string ad;
+			cout << "设备号：";
+			cin >> ad;
+			int add = stoi(ad, 0, 16);
+			string address = DEtoHEX(add);
+			while (1)
+			{
+				if (address.size() < 2)
+				{
+					address = "0" + address;
+					continue;
+				}
+				break;
+			}
+			string co;
+			cout << "请输入功能码：";
+			cin >> co;
+			int cod = stoi(co, 0, 16);
+			string code = DEtoHEX(cod);
+			while (1)
+			{
+				if (code.size() < 2)
+				{
+					code = "0" + code;
+					continue;
+				}
+				break;
+			}
+			if (cod == 1 || cod == 3)
+			{
+				strcpy(data,function01(address, code));
+			}
+			if (true == SendData(H_Com, data, strlen(data)))
 			{
 				cout << "发送请求报文成功" << endl;
 				break;
