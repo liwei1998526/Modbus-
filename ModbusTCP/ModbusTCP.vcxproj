@@ -73,6 +73,7 @@
     <ClCompile Include="10功能码.cpp" />
     <ClCompile Include="HEXtoString.cpp" />
     <ClCompile Include="server.cpp" />
+    <ClCompile Include="strtoByte.cpp" />
     <ClCompile Include="寄存器创建.cpp" />
     <ClCompile Include="线圈创建.cpp" />
   </ItemGroup>

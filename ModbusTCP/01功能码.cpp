@@ -23,12 +23,6 @@ char *FUNCTION01(string recv_str, char* send_buf, int k, vector<int>val)
 		send[14] += 8;
 		send[16] = '0';
 		send[17] = '2';
-		int space = 2;
-		while (space <= send.size())
-		{
-			send.insert(space, " ");
-			space += 3;
-		}
 		send_buf = (char*)send.c_str();
 		strcpy(send_buf_ret, send_buf);
 		cout << "寄存器超限" << endl;
@@ -133,12 +127,6 @@ char *FUNCTION01(string recv_str, char* send_buf, int k, vector<int>val)
 		string MATA = recv_str.substr(0, 8);
 		string ADDRESS = recv_str.substr(12, 4);
 		string send = MATA + len + ADDRESS + digitlen + str_data;
-		int space=2;
-		while (space <= send.size())
-		{
-			send.insert(space, " ");
-			space += 3;
-		}
 		send_buf = (char*)send.c_str();
 		strcpy(send_buf_ret, send_buf);
 		cout << "响应报文为：" << send_buf_ret << endl;

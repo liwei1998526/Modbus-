@@ -181,7 +181,9 @@ int main()
 		}
 		//cout << "请输入回复信息:";
 		//cin >> send_buf;
-		send_len = send(s_accept, send_buf, strlen(send_buf), 0);
+		unsigned char end_data[255] = { 0 };
+		HexstrtoByte(send_buf, end_data, strlen(send_buf));
+		send_len = send(s_accept,(char*)end_data, strlen(send_buf)/2, 0);
 		if (send_len < 0)
 		{
 			cout << "发送失败！" << endl;
