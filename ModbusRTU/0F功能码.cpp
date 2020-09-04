@@ -84,7 +84,9 @@ char* function0F(string add, string code)
 	}
 	string ADU = add + code + start + sum + DATA_RET + all_data;
 	ret = (char*)ADU.c_str();
-	int CR = CRC16((unsigned char*)ret, strlen(ret));
+	unsigned char crc[255] = { 0 };
+	HexstrtoByte(ret, crc, strlen(ret));
+	int CR = CRC16((unsigned char*)crc, strlen(ret)/2);
 	string CRC = DEtoHEX(CR);
 	while (1)
 	{

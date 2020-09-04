@@ -100,7 +100,9 @@ bool SendData(HANDLE m_hComm, char* data, int len)
 	//写串口
 	DWORD dwWrite = 0;
 	cout << "请求报文：" << data << endl;
-	DWORD dwRet = WriteFile(m_hComm, data, len, &dwWrite, NULL);
+	unsigned char end_data[255] = { 0 };
+	HexstrtoByte(data, end_data, strlen(data));
+	DWORD dwRet = WriteFile(m_hComm, end_data,len/2, &dwWrite, NULL);
 	//清空串口
 	PurgeComm(m_hComm, PURGE_RXCLEAR | PURGE_TXCLEAR);
 	if (!dwRet)
@@ -157,7 +159,7 @@ int main()
 	string how;
 	cin >> how;
 	COMM = com + how;
-	HANDLE H_Com = InitCOM((LPCTSTR)COMM.c_str(), 9600, 8, 0, 1);
+	HANDLE H_Com = InitCOM((LPCTSTR)COMM.c_str(), 4800, 8, 0, 1);
 	if (H_Com == INVALID_HANDLE_VALUE)
 	{
 		cout << "初始化串口失败" << endl;

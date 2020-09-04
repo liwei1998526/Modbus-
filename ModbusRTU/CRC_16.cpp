@@ -72,11 +72,40 @@ unsigned short CRC16(unsigned char* puchMsg, unsigned short usDataLen)
 	}
 	return (uchCRCHi << 8 | uchCRCLo);
 }
+//UINT16 CRC_16(UINT8 *Data, unsigned int CRC_Len)
+//{
+//	UINT16 CRC_date = 0XFFFF;//16位crc寄存器预置
+//	UINT16 temp;
+//	unsigned int i = 0, j = 0;
+//	for (i = 0; i < CRC_Len; i++)
+//	{
+//		temp = *Data & 0X00FF;//将八位数据与CRC寄存器亦或
+//		Data++;
+//		CRC_date ^= temp;
+//		for (j = 0; j < 8; j++)
+//		{
+//			if (CRC_date & 0X0001)//判断右移出的是不是1，如果是1则与多项式进行异或。
+//			{
+//				CRC_date >>= 1;
+//				CRC_date ^= 0XA001;
+//			}
+//			else
+//			{
+//				CRC_date >>= 1;
+//			}
+//		}
+//	}
+//	UINT16 Ret_CRC_date = CRC_date >> 8;
+//	Ret_CRC_date = Ret_CRC_date | CRC_date << 8;
+//	return Ret_CRC_date;
+//}
 //int main()
 //{
 //	char* test = "090F0001001904FFFFFF0F";
-//	int CR = CRC16((unsigned char*)test, strlen(test));
-//	cout << CRC16((unsigned char*)test, strlen(test)) << endl;
+//	unsigned char test1[255] = { 0 };
+//	HexstrtoByte(test, test1, strlen(test));
+//	int CR = CRC16((unsigned char*)test1, strlen(test)/2);
+//	cout << CRC16((unsigned char*)test1, strlen(test)) << endl;
 //	cout << CR << endl;
 //	getchar();
 //	return 0;
