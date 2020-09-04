@@ -30,7 +30,7 @@ char* function01(string add,string code)
 	}
 	string ADU = add + code + start + sum;
 	ret = (char*)ADU.c_str();
-	int CR = CRC_16((unsigned char*)ret, strlen(ret));
+	int CR = CRC16((unsigned char*)ret, strlen(ret));
 	string CRC = DEtoHEX(CR);
 	while (1)
 	{
