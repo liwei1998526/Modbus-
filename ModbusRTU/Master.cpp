@@ -149,7 +149,7 @@ void MSleep(long lTime)
 	} while (dfTim<dfSpec);
 }
 
-int value()
+int main()
 {
 	string COMM;
 	cout << "输入端口号为：";
@@ -214,6 +214,10 @@ int value()
 			else if (cod == 15)
 			{
 				strcpy(data, function0F(address, code));
+			}
+			else if (cod == 16)
+			{
+				strcpy(data, function10(address, code));
 			}
 			if (true == SendData(H_Com, data, strlen(data)))
 			{

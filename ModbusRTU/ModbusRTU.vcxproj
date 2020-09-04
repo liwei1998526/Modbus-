@@ -69,6 +69,7 @@
     <ClCompile Include="01功能码.cpp" />
     <ClCompile Include="0F功能码.cpp" />
     <ClCompile Include="10to16.cpp" />
+    <ClCompile Include="10功能码.cpp" />
     <ClCompile Include="CRC_16.cpp" />
     <ClCompile Include="Master.cpp" />
   </ItemGroup>

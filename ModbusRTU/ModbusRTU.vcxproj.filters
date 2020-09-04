@@ -27,6 +27,12 @@
     <ClCompile Include="01功能码.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="0F功能码.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="10功能码.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">

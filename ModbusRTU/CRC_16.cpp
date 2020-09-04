@@ -72,12 +72,12 @@ unsigned short CRC16(unsigned char* puchMsg, unsigned short usDataLen)
 	}
 	return (uchCRCHi << 8 | uchCRCLo);
 }
-int main()
-{
-	char* test = "090F0001001904FFFFFF0F";
-	int CR = CRC16((unsigned char*)test, strlen(test));
-	cout << CRC16((unsigned char*)test, strlen(test)) << endl;
-	cout << CR << endl;
-	getchar();
-	return 0;
-}
+//int main()
+//{
+//	char* test = "090F0001001904FFFFFF0F";
+//	int CR = CRC16((unsigned char*)test, strlen(test));
+//	cout << CRC16((unsigned char*)test, strlen(test)) << endl;
+//	cout << CR << endl;
+//	getchar();
+//	return 0;
+//}
