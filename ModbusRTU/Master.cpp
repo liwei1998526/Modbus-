@@ -175,7 +175,6 @@ int main()
 		//RTU主站，生成并发送请求，计时，读取响应报文,先发送后接收
 		//生成请求报文
 		//发送请求报文
-
 		PurgeComm(H_Com, PURGE_RXABORT | PURGE_TXCLEAR | PURGE_RXCLEAR | PURGE_TXABORT);//清除缓存
 		while (1)
 		{
@@ -235,9 +234,34 @@ int main()
 		}
 		else
 			cout << "loss" << endl;
-
+		int close;
+		cout << "是否关闭串口（0关闭，1继续）：";
+		while (1)
+		{
+			cin >> close;
+			if (close == 1)
+			{
+				break;
+			}
+			else if (close == 0)
+			{
+				CloseHandle(H_Com);
+				break;
+			}
+			else
+			{
+				cout << "输入不规范，请在次输入" << endl;
+				continue;
+			}
+		}
+		if (close == 0)
+		{
+			break;
+		}
+		else
+			continue;
+		
 	}
-	CloseHandle(H_Com);
 	getchar();
 	return 0;
 }
