@@ -68,10 +68,13 @@
   <ItemGroup>
     <ClCompile Include="01功能码.cpp" />
     <ClCompile Include="0F功能码.cpp" />
+    <ClCompile Include="10to02.cpp" />
     <ClCompile Include="10to16.cpp" />
     <ClCompile Include="10功能码.cpp" />
     <ClCompile Include="CRC_16.cpp" />
+    <ClCompile Include="Hextostring.cpp" />
     <ClCompile Include="Master.cpp" />
+    <ClCompile Include="respond.cpp" />
     <ClCompile Include="strtoByte.cpp" />
   </ItemGroup>
   <ItemGroup>

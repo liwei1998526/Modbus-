@@ -5,6 +5,7 @@
 #define MAX_NUMBER 300
 char read_buf[MAX_NUMBER];
 
+
 /*******************************************************************************************
  * 功能     ：	打开串口
  * port     :	串口号, 如("COM1")
@@ -153,6 +154,7 @@ void MSleep(long lTime)
 
 int main()
 {
+	/*按端口号链接*/
 	string COMM;
 	cout << "输入端口号为：";
 	string com = "com";
@@ -173,8 +175,6 @@ int main()
 	while (true)
 	{
 		//RTU主站，生成并发送请求，计时，读取响应报文,先发送后接收
-		//生成请求报文
-		//发送请求报文
 		PurgeComm(H_Com, PURGE_RXABORT | PURGE_TXCLEAR | PURGE_RXCLEAR | PURGE_TXABORT);//清除缓存
 		while (1)
 		{
@@ -194,6 +194,7 @@ int main()
 				}
 				break;
 			}
+			/*按功能码输出请求报文*/
 			string co;
 			cout << "请输入功能码：";
 			cin >> co;
@@ -210,15 +211,15 @@ int main()
 			}
 			if (cod == 1 || cod == 3)
 			{
-				strcpy(data,function01(address, code));
+				strcpy(data,function01(address, code));//01或03发送的报文
 			}
 			else if (cod == 15)
 			{
-				strcpy(data, function0F(address, code));
+				strcpy(data, function0F(address, code));//0F发送的报文
 			}
 			else if (cod == 16)
 			{
-				strcpy(data, function10(address, code));
+				strcpy(data, function10(address, code));//10发送的报文
 			}
 			if (true == SendData(H_Com, data, strlen(data)))
 			{
@@ -226,14 +227,29 @@ int main()
 				break;
 			}
 		}
-		BOOL bReadOK = ReadFile(H_Com, read_buf, 256, &dwRead, NULL);
+		UINT8 read_buf_16[MAX_NUMBER];
+		memset(read_buf_16, 0, sizeof(read_buf_16));
+		BOOL bReadOK = ReadFile(H_Com,(char*)read_buf_16, 256, &dwRead, NULL);
+		if (read_buf_16[0] == '0')
+		{
+			for (int p = 0; p < 256; p++)
+			{
+				read_buf[p] = read_buf_16[p];
+			}
+		}
+		else
+		{
+			strcpy(read_buf, hex2str(read_buf_16,256));
+		}
 		if (bReadOK && (dwRead > 0))
 		{
 			read_buf[dwRead] = '\0';
-			printf("收到响应：%s \r\n", read_buf);
+			cout << "收到响应：" << read_buf << endl;
+			/*处理响应报文*/
 		}
 		else
 			cout << "loss" << endl;
+		/*关闭串口*/
 		int close;
 		cout << "是否关闭串口（0关闭，1继续）：";
 		while (1)
