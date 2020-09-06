@@ -1,8 +1,10 @@
 #include"main.h"
-void respond_massage(string read_str)
+void respond_massage(string read_str,string send_buf)
 {
 	string respond_high_code = read_str.substr(2, 1);
 	int high_code = stoi(respond_high_code, 0, 16);
+	string respond_code = read_str.substr(2, 2);
+	int respond_code_int = stoi(respond_code, 0, 16);
 	if (high_code >= 8)
 	{
 		string Exception_code = read_str.substr(4, 2);
@@ -25,6 +27,9 @@ void respond_massage(string read_str)
 	}
 	else
 	{
-
+		if (respond_code_int == 1)
+		{
+			respond_01(read_str, send_buf);
+		}
 	}
 }

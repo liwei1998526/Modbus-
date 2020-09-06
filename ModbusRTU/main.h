@@ -13,3 +13,4 @@ char* hex2str(UINT8 *hex, int len);
 char* function01(string add, string code);
 char* function0F(string add, string code);
 char* function10(string add, string code);
+char* respond_01(string Read_buf, string send_buf);

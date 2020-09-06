@@ -156,6 +156,7 @@ int main()
 {
 	/*按端口号链接*/
 	string COMM;
+	string send_buf;//承载输入报文
 	cout << "输入端口号为：";
 	string com = "com";
 	string how;
@@ -221,6 +222,7 @@ int main()
 			{
 				strcpy(data, function10(address, code));//10发送的报文
 			}
+			send_buf = data;
 			if (true == SendData(H_Com, data, strlen(data)))
 			{
 				cout << "发送请求报文成功" << endl;
@@ -246,6 +248,8 @@ int main()
 			read_buf[dwRead] = '\0';
 			cout << "收到响应：" << read_buf << endl;
 			/*处理响应报文*/
+			string read_str = read_buf;
+			respond_massage(read_str, send_buf);
 		}
 		else
 			cout << "loss" << endl;
