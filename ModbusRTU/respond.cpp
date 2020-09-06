@@ -31,9 +31,13 @@ void respond_massage(string read_str,string send_buf)
 		{
 			respond_01(read_str, send_buf);
 		}
-		if (respond_code_int == 3)
+		else if (respond_code_int == 3)
 		{
 			respond_03(read_str, send_buf);
+		}
+		else if (respond_code_int == 15 || respond_code_int == 16)
+		{
+			cout << "ÏìÓ¦±¨ÎÄ£º" << read_str << endl;
 		}
 	}
 }
