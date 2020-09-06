@@ -45,6 +45,12 @@
     <ClCompile Include="10to02.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="01Respond.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="03Respond.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">

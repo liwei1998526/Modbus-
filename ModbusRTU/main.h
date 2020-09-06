@@ -13,4 +13,6 @@ char* hex2str(UINT8 *hex, int len);
 char* function01(string add, string code);
 char* function0F(string add, string code);
 char* function10(string add, string code);
-char* respond_01(string Read_buf, string send_buf);
+void respond_massage(string read_str, string send_buf);
+void respond_01(string Read_buf, string send_buf);
+void respond_03(string Read_buf, string send_buf);

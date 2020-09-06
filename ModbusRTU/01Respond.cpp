@@ -1,5 +1,5 @@
 #include"main.h"
-char* respond_01(string Read_buf, string send_buf)
+void respond_01(string Read_buf, string send_buf)
 {
 	vector<string>ALL_DATA;
 	string start_add_str = send_buf.substr(4, 4);
