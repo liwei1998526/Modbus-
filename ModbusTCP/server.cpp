@@ -163,12 +163,6 @@ int main()
 			send[14] += 8;
 			send[16] = '0';
 			send[17] = '1';
-			int space = 2;
-			while (space <= send.size())
-			{
-				send.insert(space, " ");
-				space += 3;
-			}
 			int b;
 			memset(send_buf, 0, sizeof(send_buf));
 			for (b = 0; b < send.size(); b++)

@@ -30,11 +30,22 @@ char* function10(string add, string code)
 		break;
 	}
 	int init = i;
-	while (init<=i+digit)
+	while (init<=i+digit-1)
 	{
 		string date;
-		cout << "第" << init << "寄存器的值：";
-		cin >> date;
+		while (1)
+		{
+			cout << "第" << init << "寄存器的值(16进制)：";
+			cin >> date;
+			int date_max = stoi(date, 0, 16);
+			if (date_max > 65535)
+			{
+				cout << "输入不规范，请重新输入" << endl;
+				continue;
+			}
+			break;
+		}	
+
 		while (1)
 		{
 			if (date.size() < 4)

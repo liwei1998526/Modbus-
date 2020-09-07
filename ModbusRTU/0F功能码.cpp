@@ -35,8 +35,18 @@ char* function0F(string add, string code)
 		if (init + 8 <= i+digit)
 		{
 			string data;
-			cout << "第" << init << "到" << init + 7 << " 线圈的值(16进制数)为：";
-			cin >> data;
+			while (1)
+			{
+				cout << "第" << init << "到" << init + 7 << " 线圈的值(16进制数)为：";
+				cin >> data;
+				int data_max = stoi(data, 0, 16);
+				if (data_max > 65535)
+				{
+					cout << "输入不规范，请重新输入" << endl;
+					continue;
+				}
+				break;
+			}
 			while (1)
 			{
 				if (data.size() < 2)
@@ -51,8 +61,18 @@ char* function0F(string add, string code)
 		else if (init + 8 >i+digit)
 		{
 			string data;
-			cout << "第" << init << "到" << i+digit << " 线圈的值(16进制数)为：";
-			cin >> data;
+			while (1)
+			{
+				cout << "第" << init << "到" << i + digit << " 线圈的值(16进制数)为：";
+				cin >> data;
+				int data_max = stoi(data, 0, 16);
+				if (data_max > 65535)
+				{
+					cout << "输入不规范，请重新输入" << endl;
+					continue;
+				}
+				break;
+			}
 			while (1)
 			{
 				if (data.size() < 2)
