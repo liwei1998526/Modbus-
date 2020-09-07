@@ -75,7 +75,8 @@ HANDLE InitCOM(LPCTSTR Port, int baud_rate, BYTE date_bits, BYTE stop_bit, BYTE 
 	CommTimeOuts.ReadTotalTimeoutConstant = 0;
 	CommTimeOuts.WriteTotalTimeoutMultiplier = 10;
 	CommTimeOuts.WriteTotalTimeoutConstant = 1000;
-	if (!SetCommTimeouts(hCom, &CommTimeOuts)) {
+	if (!SetCommTimeouts(hCom, &CommTimeOuts)) 
+	{
 		return INVALID_HANDLE_VALUE;
 	}
 	//创建线程，读取数据
@@ -111,27 +112,6 @@ bool SendData(HANDLE m_hComm, char* data, int len)
 	return TRUE;
 }
 
-/*********************************************************************************************
-* 功能     ：   获取串口读取缓存区中数据的字节数
-* 描述	   ：	向串口写入数据
-* 返回值   ：   缓存区中数据的字节数
-* m_hComm  ：   串口句柄
-********************************************************************************************/
-unsigned int GetBytesInCOM(HANDLE m_hComm)
-{
-	DWORD dwError = 0;  /** 错误码 */
-	COMSTAT  comstat;   /** COMSTAT结构体,记录通信设备的状态信息 */
-	memset(&comstat, 0, sizeof(COMSTAT));
-
-	unsigned int BytesInQue = 0;
-	/** 在调用ReadFile和WriteFile之前,通过本函数清除以前遗留的错误标志 */
-	if (ClearCommError(m_hComm, &dwError, &comstat))
-	{
-		BytesInQue = comstat.cbInQue; /** 获取在输入缓冲区中的字节数 */
-	}
-	return BytesInQue;
-}
-
 void MSleep(long lTime)
 {
 	LARGE_INTEGER litmp;
@@ -156,13 +136,30 @@ int main()
 {
 	/*按端口号链接*/
 	string COMM;
-	string send_buf;//承载输入报文
+	string send_buf;//承载输出报文数据
 	cout << "输入端口号为：";
 	string com = "com";
 	string how;
 	cin >> how;
 	COMM = com + how;
-	HANDLE H_Com = InitCOM((LPCTSTR)COMM.c_str(), 4800, 8, 0, 1);
+	int Bund_rate = 0;
+	int bund;
+	cout << "1--9600" << " " << "2--14400" << " " << "3--19200" << endl;
+	cout << "请选择波特率：";
+	cin >> bund;
+	if (bund == 1)
+	{
+		Bund_rate = 9600;
+	}
+	else if (bund == 2)
+	{
+		Bund_rate = 14400;
+	}
+	else if (bund == 3)
+	{
+		Bund_rate = 19200;
+	}
+	HANDLE H_Com = InitCOM((LPCTSTR)COMM.c_str(), Bund_rate, 8, 0, 1);
 	if (H_Com == INVALID_HANDLE_VALUE)
 	{
 		cout << "初始化串口失败" << endl;
@@ -232,27 +229,55 @@ int main()
 		UINT8 read_buf_16[MAX_NUMBER];
 		memset(read_buf_16, 0, sizeof(read_buf_16));
 		BOOL bReadOK = ReadFile(H_Com,(char*)read_buf_16, 256, &dwRead, NULL);
-		if (read_buf_16[0] == '0')
+		int frequency = 2;
+		while (frequency > 0)
 		{
-			for (int p = 0; p < 256; p++)
+			if (read_buf_16[0] == '0')
 			{
-				read_buf[p] = read_buf_16[p];
+				for (int p = 0; p < 256; p++)
+				{
+					read_buf[p] = read_buf_16[p];
+				}
 			}
+			else if (read_buf_16[0] == 9)
+			{
+				strcpy(read_buf, hex2str(read_buf_16, strlen((char*)read_buf_16)));
+			}
+			if (bReadOK && (dwRead > 0))
+			{
+				cout << "收到响应：" << read_buf << endl;
+				/*处理响应报文*/
+				string read_str = read_buf;
+				string ret_str = read_str.substr(0, read_str.size() - 4);
+				string CRC_str = read_str.substr(read_str.size() - 4, 4);
+				char*ret = (char*)ret_str.c_str();
+				unsigned char crc[255] = { 0 };
+				HexstrtoByte(ret, crc, strlen(ret));
+				int CR = CRC16((unsigned char*)crc, strlen(ret) / 2);
+				string CRC = DEtoHEX(CR);
+				if (CRC != CRC_str)
+				{
+					cout << "数据出错" << endl;//CRC校验不通过，返回数据出错，关闭串口。
+					CloseHandle(H_Com);
+					getchar();
+					return 0;
+				}
+				respond_massage(read_str, send_buf);
+				break;
+			}
+			else
+			{
+				char*data_again;
+				data_again = (char*)send_buf.c_str();
+				SendData(H_Com, data_again, strlen(data_again));
+				BOOL bReadOK = ReadFile(H_Com, (char*)read_buf_16, 256, &dwRead, NULL);
+			}
+			frequency--;
 		}
-		else
+		if (bReadOK == false || (dwRead <= 0))
 		{
-			strcpy(read_buf, hex2str(read_buf_16,256));
+			cout << "从机断开" << endl;
 		}
-		if (bReadOK && (dwRead > 0))
-		{
-			read_buf[dwRead] = '\0';
-			cout << "收到响应：" << read_buf << endl;
-			/*处理响应报文*/
-			string read_str = read_buf;
-			respond_massage(read_str, send_buf);
-		}
-		else
-			cout << "loss" << endl;
 		/*关闭串口*/
 		int close;
 		cout << "是否关闭串口（0关闭，1继续）：";

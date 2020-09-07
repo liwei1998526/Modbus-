@@ -37,7 +37,7 @@ void respond_massage(string read_str,string send_buf)
 		}
 		else if (respond_code_int == 15 || respond_code_int == 16)
 		{
-			cout << "响应报文：" << read_str << endl;
+			cout << "修改完成" << endl;
 		}
 	}
 }

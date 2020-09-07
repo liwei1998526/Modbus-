@@ -17,7 +17,7 @@ void respond_03(string Read_buf, string send_buf)
 	int j = 0;
 	for (int i = start_add_int; i < start_add_int + digit_int; i++)
 	{
-		cout << "第" << i << "给寄存器的值为：" << ALL_DATA[j] << endl;
+		cout << "第" << i << "个寄存器的值为：" << ALL_DATA[j] << endl;
 		j++;
 	}
 }
