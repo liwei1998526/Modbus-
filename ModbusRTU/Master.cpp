@@ -207,17 +207,17 @@ int main()
 				}
 				break;
 			}
-			if (cod == 1 || cod == 3)
-			{
-				strcpy(data,function01(address, code));//01或03发送的报文
+			if (cod == 1 || cod == 3 || cod == 2)
+			{//01或03发送的报文,添加02功能码，以验证从机能否正确返回异常功能码。
+				strcpy(data,function01(address, code));
 			}
 			else if (cod == 15)
-			{
-				strcpy(data, function0F(address, code));//0F发送的报文
+			{//0F发送的报文
+				strcpy(data, function0F(address, code));
 			}
 			else if (cod == 16)
-			{
-				strcpy(data, function10(address, code));//10发送的报文
+			{//10发送的报文
+				strcpy(data, function10(address, code));
 			}
 			send_buf = data;
 			if (true == SendData(H_Com, data, strlen(data)))
