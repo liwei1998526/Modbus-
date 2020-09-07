@@ -77,6 +77,7 @@
     <ClCompile Include="Hextostring.cpp" />
     <ClCompile Include="Master.cpp" />
     <ClCompile Include="respond.cpp" />
+    <ClCompile Include="send.cpp" />
     <ClCompile Include="strtoByte.cpp" />
   </ItemGroup>
   <ItemGroup>

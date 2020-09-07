@@ -4,6 +4,7 @@
 #include<windows.h>
 #include<ctype.h>
 using namespace std;
+bool SendData(HANDLE m_hComm, char* data, int len);
 string DEtoHEX(int n);
 string DEtoBIN(int n);
 unsigned short CRC16(unsigned char* puchMsg, unsigned short usDataLen);
