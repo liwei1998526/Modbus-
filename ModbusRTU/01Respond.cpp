@@ -50,7 +50,7 @@ void respond_01(string Read_buf, string send_buf)
 		}
 		else if (i + 7>start_add_int + digit_int)
 		{
-			cout << "第" << start_add_int+digit_int << "--" << i << "个线圈的值为：" << ALL_DATA[j] << endl;
+			cout << "第" << start_add_int+digit_int-1 << "--" << i << "个线圈的值为：" << ALL_DATA[j] << endl;
 			break;
 		}
 	}

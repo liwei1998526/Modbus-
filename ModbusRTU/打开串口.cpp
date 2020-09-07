@@ -64,7 +64,15 @@ HANDLE InitCOM(LPCTSTR Port, int baud_rate, BYTE date_bits, BYTE stop_bit, BYTE 
 		dcb.fParity = TRUE;		//奇偶校验开启
 		dcb.Parity = parity;	//校验模式
 	}
-	cout << "端口为：com" << SetCommState(hCom, &dcb) << endl;
+	SetCommState(hCom, &dcb);
+	if (SetCommState(hCom, &dcb) == 1)
+	{
+		cout << "串口打开成功" << endl;
+	}
+	else
+	{
+		cout << "串口打开失败" << endl;
+	}
 	PurgeComm(hCom, PURGE_RXABORT | PURGE_TXCLEAR | PURGE_RXCLEAR | PURGE_TXABORT);//清除缓存
 	//设置串口读写时间
 	COMMTIMEOUTS CommTimeOuts;

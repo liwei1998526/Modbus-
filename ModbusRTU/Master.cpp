@@ -16,7 +16,7 @@ int main()
 	COMM = com + how;
 	int Bund_rate = 0;
 	int bund;
-	cout << "1--9600" << " " << "2--14400" << " " << "3--19200" << endl;
+	cout << "1--9600" << " " << "2--14400" << " " << "3--19200" <<" "<<"4--115200"<< endl;
 	cout << "请选择波特率：";
 	cin >> bund;
 	if (bund == 1)
@@ -31,7 +31,15 @@ int main()
 	{
 		Bund_rate = 19200;
 	}
-	HANDLE H_Com = InitCOM((LPCTSTR)COMM.c_str(), Bund_rate, 8, 0, 1);
+	else if (bund == 4)
+	{
+		Bund_rate = 115200;
+	}
+	int check;
+	cout << "0--无校验" << " " << "1--奇校验" << " " << "2--偶校验" << endl;
+	cout << "输入校验位：";
+	cin >> check;
+	HANDLE H_Com = InitCOM((LPCTSTR)COMM.c_str(), Bund_rate, 8, 0, check);
 	if (H_Com == INVALID_HANDLE_VALUE)
 	{
 		cout << "初始化串口失败" << endl;
@@ -113,7 +121,7 @@ int main()
 			}
 			else if (read_buf_16[0] == 9)
 			{
-				strcpy(read_buf, hex2str(read_buf_16, strlen((char*)read_buf_16)));
+				strcpy(read_buf, hex2str(read_buf_16, dwRead));
 			}
 			if (bReadOK && (dwRead > 0))
 			{
@@ -132,7 +140,6 @@ int main()
 					cout << "数据出错" << endl;//CRC校验不通过，返回数据出错，关闭串口。
 					CloseHandle(H_Com);
 					getchar();
-					return 0;
 				}
 				respond_massage(read_str, send_buf);
 				break;
