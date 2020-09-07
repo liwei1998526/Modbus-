@@ -155,7 +155,7 @@ int main()
 		}
 		if (bReadOK == false || (dwRead <= 0))
 		{
-			cout << "从机断开" << endl;
+			cout << "超时，从机断开" << endl;
 		}
 		/*关闭串口*/
 		int close;
