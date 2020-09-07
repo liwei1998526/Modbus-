@@ -79,6 +79,7 @@
     <ClCompile Include="respond.cpp" />
     <ClCompile Include="send.cpp" />
     <ClCompile Include="strtoByte.cpp" />
+    <ClCompile Include="打开串口.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h" />

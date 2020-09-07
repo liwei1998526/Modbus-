@@ -54,6 +54,9 @@
     <ClCompile Include="send.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="打开串口.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">

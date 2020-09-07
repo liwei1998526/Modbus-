@@ -4,6 +4,7 @@
 #include<windows.h>
 #include<ctype.h>
 using namespace std;
+HANDLE InitCOM(LPCTSTR Port, int baud_rate, BYTE date_bits, BYTE stop_bit, BYTE parity);
 bool SendData(HANDLE m_hComm, char* data, int len);
 string DEtoHEX(int n);
 string DEtoBIN(int n);
