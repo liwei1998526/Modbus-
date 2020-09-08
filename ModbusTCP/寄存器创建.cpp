@@ -27,7 +27,7 @@ void WriteRigisterCommand(int &m, int &n, vector<int>&val)
 	}
 	while (1)
 	{
-		int x, k;
+		int k;
 		cout << "请输入寄存器对应的值（0为关，1为开）：" << endl;
 		for (k = 1; k <= n; k++)
 		{
