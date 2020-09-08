@@ -28,12 +28,12 @@ int main()
 	/*char send_buf_code[100];
 	memset(send_buf_code, 0, sizeof(send_buf_code));*/
 	//定义发送缓冲区和接受缓冲区
-	char send_buf[100];
+	char send_buf[600];
 	//初始化内存，避免烫烫烫
 	memset(send_buf, 0, sizeof(send_buf));
-	char recv_buf[100];
+	char recv_buf[600];
 	memset(recv_buf, 0, sizeof(recv_buf));
-	UINT8 recv_buf_16[100];
+	UINT8 recv_buf_16[600];
 	memset(recv_buf_16, 0, sizeof(recv_buf_16));
 	//定义服务端套接字，接受请求套接字
 	SOCKET s_server;
@@ -81,11 +81,11 @@ int main()
 	//接收数据
 	while (1)
 	{
-		memset(recv_buf_16, 0, 100);
+		memset(recv_buf_16, 0, 600);
 		memset(send_buf, 0, strlen(send_buf));
-		recv_len = recv(s_accept,(char*)recv_buf_16, 100, 0);
+		recv_len = recv(s_accept,(char*)recv_buf_16, 600, 0);
 		int O=0;
-		for (int max = 0; max < 100; max++)
+		for (int max = 0; max < 600; max++)
 		{
 			if (recv_buf_16[max] == 0)
 			{
@@ -93,7 +93,7 @@ int main()
 			}
 			continue;
 		}
-		if (O == 100)
+		if (O == 600)
 		{
 			break;
 		}
@@ -131,8 +131,8 @@ int main()
 		int device = stoi(recv_device, 0, 16);
 		if (device != 9)
 		{
-			getchar();
-			return -1;
+			cout << "设备号出错" << endl;
+			continue;
 		}
 		if (recv_str.size() <= 14)
 		{
@@ -140,33 +140,7 @@ int main()
 		}
 		string recv_code = recv_str.substr(14, 2);
 		int function = stoi(recv_code, 0, 16);
-		if (function == 1)
-		{
-			char *send_buf_code = new char(100);
-			memset(send_buf_code, 0, sizeof(send_buf_code));
-			//send_buf_code1= FUNCTION01(recv_buf, send_buf_code, m, val);
-			//FUNCTION01(recv_buf, send_buf_code, m, val);
-			strcpy(send_buf, FUNCTION01(recv_str, send_buf_code, m, val));
-		}
-		if (function == 3)
-		{
-			char *send_buf_code = new char(100);
-			memset(send_buf_code, 0, sizeof(send_buf_code));
-			strcpy(send_buf, FUNCTION03(recv_str, send_buf_code, m, val));
-		}
-		if (function == 15)
-		{
-			char *send_buf_code = new char(100);
-			memset(send_buf_code, 0, sizeof(send_buf_code));
-			strcpy(send_buf, FUNCTION0F(recv_str, send_buf_code, m, val));
-		}
-		if (function == 16)
-		{
-			char *send_buf_code = new char(100);
-			memset(send_buf_code, 0, sizeof(send_buf_code));
-			strcpy(send_buf, FUNCTION10(recv_str, send_buf_code, m, val));
-		}
-		else if (function != 1 && function != 3 && function != 15 && function != 16)
+		if (function != 1 && function != 3 && function != 15 && function != 16)
 		{
 			string send;
 			for (int i = 0; i < 18; i++)
@@ -187,9 +161,35 @@ int main()
 			cout << "响应报文为：" << send_buf << endl;
 
 		}
+		else if (code == 1 )
+		{
+			char *send_buf_code = new char(600);
+			memset(send_buf_code, 0, sizeof(send_buf_code));
+			//send_buf_code1= FUNCTION01(recv_buf, send_buf_code, m, val);
+			//FUNCTION01(recv_buf, send_buf_code, m, val);
+			strcpy(send_buf, FUNCTION01(recv_str, send_buf_code, m, val));
+		}
+		else if (code == 3 )
+		{
+			char *send_buf_code = new char(600);
+			memset(send_buf_code, 0, sizeof(send_buf_code));
+			strcpy(send_buf, FUNCTION03(recv_str, send_buf_code, m, val));
+		}
+		else if (code == 15 )
+		{
+			char *send_buf_code = new char(600);
+			memset(send_buf_code, 0, sizeof(send_buf_code));
+			strcpy(send_buf, FUNCTION0F(recv_str, send_buf_code, m, val));
+		}
+		else if (code == 16 )
+		{
+			char *send_buf_code = new char(600);
+			memset(send_buf_code, 0, sizeof(send_buf_code));
+			strcpy(send_buf, FUNCTION10(recv_str, send_buf_code, m, val));
+		}
 		//cout << "请输入回复信息:";
 		//cin >> send_buf;
-		unsigned char end_data[255] = { 0 };
+		unsigned char end_data[600] = { 0 };
 		HexstrtoByte(send_buf, end_data, strlen(send_buf));
 		send_len = send(s_accept,(char*)end_data, strlen(send_buf)/2, 0);
 		if (send_len < 0)
