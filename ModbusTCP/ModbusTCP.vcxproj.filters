@@ -48,6 +48,9 @@
     <ClCompile Include="strtoByte.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="initialization.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Modbus.h">
