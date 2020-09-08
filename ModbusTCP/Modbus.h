@@ -2,6 +2,7 @@
 #include<string>
 #include<windows.h>
 using namespace std;
+void initialization();//≥ı ºªØ
 void WriteCoilCommand(int &m, int &n, vector<int>&val);
 void WriteRigisterCommand(int &m, int &n, vector<int>&val);
 string DEtoHEX(int n);
