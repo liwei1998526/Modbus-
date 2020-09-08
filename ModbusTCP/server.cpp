@@ -5,7 +5,6 @@
 #include"Modbus.h"
 #pragma comment(lib,"ws2_32.lib")
 using namespace std;
-void initialization();
 int main()
 {
 	string co;
@@ -82,7 +81,22 @@ int main()
 	//接收数据
 	while (1)
 	{
+		memset(recv_buf_16, 0, 100);
+		memset(send_buf, 0, strlen(send_buf));
 		recv_len = recv(s_accept,(char*)recv_buf_16, 100, 0);
+		int O=0;
+		for (int max = 0; max < 100; max++)
+		{
+			if (recv_buf_16[max] == 0)
+			{
+				O++;
+			}
+			continue;
+		}
+		if (O == 100)
+		{
+			break;
+		}
 		if (recv_buf_16[0] == '0')
 		{
 			for (int p = 0; p < recv_len; p++)
@@ -190,31 +204,4 @@ int main()
 	//释放DLL资源
 	WSACleanup();
 	return 0;
-}
-void initialization()
-{
-	//初始化套接字库
-	WORD w_req = MAKEWORD(2, 2);//版本号
-	WSADATA wsadata;
-	int err;
-	err = WSAStartup(w_req, &wsadata);
-	if (err != 0)
-	{
-		cout << "初始化套接字库失败！" << endl;
-	}
-	else
-	{
-		cout << "初始化套接字库成功！" << endl;
-	}
-	//检测版本号
-	if (LOBYTE(wsadata.wVersion) != 2 || HIBYTE(wsadata.wHighVersion) != 2)
-	{
-		cout << "套接字库版本号不符！" << endl;
-		WSACleanup();
-	}
-	else
-	{
-		cout << "套接字库版本正确！" << endl;
-	}
-	//填充服务端地址信息
 }
