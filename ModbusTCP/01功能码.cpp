@@ -5,8 +5,33 @@
 using namespace std;
 char *FUNCTION01(string recv_str, char* send_buf, int k, vector<int>val)
 {
-	char send_buf_ret[100];
+	char send_buf_ret[600];
 	memset(send_buf_ret, 0, sizeof(send_buf_ret));
+	string recv_code = recv_str.substr(14, 2);
+	int function = stoi(recv_code, 0, 16);
+	if (function != 1)
+	{
+		string send;
+		for (int i = 0; i < 18; i++)
+		{
+			send += recv_str[i];
+		}
+		send[11] = '3';
+		send[14] += 8;
+		send[16] = '0';
+		send[17] = '1';
+		int b;
+		memset(send_buf, 0, sizeof(send_buf));
+		for (b = 0; b < send.size(); b++)
+		{
+			send_buf[b] = send[b];
+		}
+		cout << "无可用功能码" << endl;
+		cout << "响应报文为：" << send_buf << endl;
+		strcpy(send_buf_ret, send_buf);
+		return send_buf_ret;
+	}
+	
 	vector<string>ALL_DATA;
 	string recv_start_add = recv_str.substr(16, 4);
 	int start_add = stoi(recv_start_add, 0, 16);
@@ -41,7 +66,7 @@ char *FUNCTION01(string recv_str, char* send_buf, int k, vector<int>val)
 		}
 		else
 		{
-			v = (digit / 8) + 1;
+			v = (digit / 8)+1;
 		}
 		while (v > 0)
 		{
@@ -95,7 +120,7 @@ char *FUNCTION01(string recv_str, char* send_buf, int k, vector<int>val)
 				ALL_DATA.push_back(DATA);
 			}
 			DIFF += 8;
-			--v;
+			v--;
 		}
 		string str_data = "";
 		for (int s = 0; s < ALL_DATA.size(); s++)
@@ -113,7 +138,15 @@ char *FUNCTION01(string recv_str, char* send_buf, int k, vector<int>val)
 			}
 			break;
 		}
-		int digitlength = (digit / 8) + 1;
+		int digitlength;
+		if (digit % 8 == 0 && digit >= 8)
+		{
+			digitlength = digit / 8;
+		}
+		else
+		{
+			digitlength = (digit / 8) + 1;
+		}
 		string digitlen = DEtoHEX(digitlength);
 		while (1)
 		{
