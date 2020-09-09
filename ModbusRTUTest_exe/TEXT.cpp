@@ -14,7 +14,13 @@ int main()
 	cout <<"01请求报文："<< data1 << endl;
 	string send_buf_01= data1;
 	string recv_buf_01 = "090105FFFFFFFF00C534";
+	string recv_buf_11 = "0981010052";
+	string recv_buf_21 = "0981024053";
+	string recv_buf_31 = "0981038193";
 	respond_massage(recv_buf_01, send_buf_01);
+	respond_massage(recv_buf_11, send_buf_01);//01异常响应报文处理。
+	respond_massage(recv_buf_21, send_buf_01);//02异常响应报文处理。
+	respond_massage(recv_buf_31, send_buf_01);//03异常响应报文处理。
 	char data3[256];
 	memset(data3, 0, sizeof(data3));
 	string add_03 = "09";
@@ -38,7 +44,7 @@ int main()
 	string add_10 = "09";
 	string code_10 = "10";
 	strcpy(data10, function10(add_10, code_0F));
-	cout << "10请求报文：" << data0F << endl;
+	cout << "10请求报文：" << data10 << endl;
 	string send_buf_10 = data10;
 	string recv_buf_10 = "090F00020004F80";
 	respond_massage(recv_buf_10, send_buf_10);
