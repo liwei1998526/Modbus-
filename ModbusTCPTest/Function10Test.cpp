@@ -24,8 +24,9 @@ namespace ModbusTCPTest
 			{
 				CString a, b, c;
 				char*send_buf = new char(600);
-				char*actual;
-				memset(send_buf, 0, strlen(send_buf));
+				char actual[600];
+				memset(actual, 0, sizeof(actual));
+				memset(send_buf, 0, sizeof(send_buf));
 				CString str = _T("");
 				str.Format(_T("%d"), i);
 				USES_CONVERSION;
@@ -48,10 +49,13 @@ namespace ModbusTCPTest
 					val.push_back(atoi(sh2));
 					sh2 = strtok(NULL, ",");
 				}
-				actual = FUNCTION10(recv_buf, send_buf, k, val);
+				strcpy(actual, FUNCTION10(recv_buf, send_buf, k, val));
 				GetPrivateProfileString(add, _T("output"), _T("error"), c.GetBuffer(MAX_PATH), MAX_PATH, _T(FUN10_PATH));
 				c.ReleaseBuffer();
-				char*expect = T2A(c);
+				char*expect_1 = T2A(c);
+				char expect[600];
+				memset(expect, 0, 600);
+				strcpy(expect, expect_1);
 				Assert::AreEqual(expect, actual);
 			}
 		}

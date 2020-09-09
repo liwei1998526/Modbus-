@@ -38,5 +38,11 @@
     <ClCompile Include="Function10Test.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="DEtoHEXTest.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="DEtoBINTest.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
