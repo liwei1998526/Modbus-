@@ -160,7 +160,6 @@ int main()
 				send_buf[b] = send[b];
 			}
 			cout << "无可用功能码" << endl;
-			cout << "响应报文为：" << send_buf << endl;
 
 		}
 		else if (code == 1 )
@@ -183,6 +182,8 @@ int main()
 		}
 		//cout << "请输入回复信息:";
 		//cin >> send_buf;
+		send_buf[13] = '9';
+		cout << "响应报文为：" << send_buf << endl;
 		unsigned char end_data[600] = { 0 };
 		HexstrtoByte(send_buf, end_data, strlen(send_buf));
 		send_len = send(s_accept,(char*)end_data, strlen(send_buf)/2, 0);
