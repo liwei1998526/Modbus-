@@ -49,7 +49,6 @@ char *FUNCTION03(string recv_str, char* send_buf, int k, vector<int>val)
 		send_buf = (char*)send.c_str();
 		strcpy(send_buf_ret, send_buf);
 		cout << "寄存器超限" << endl;
-		cout << "响应报文为：" << send_buf_ret << endl;
 		return send_buf_ret;
 	}
 	else
@@ -106,7 +105,6 @@ char *FUNCTION03(string recv_str, char* send_buf, int k, vector<int>val)
 		string send = MATA + len + ADDRESS + digitlen + str_data;
 		send_buf = (char*)send.c_str();
 		strcpy(send_buf_ret, send_buf);
-		cout << "响应报文为：" << send_buf_ret << endl;
 		return send_buf_ret;
 	}
 }

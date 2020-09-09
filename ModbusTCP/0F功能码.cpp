@@ -63,7 +63,6 @@ char *FUNCTION0F(string recv_str, char* send_buf, int k, vector<int>&val)
 		send_buf = (char*)send.c_str();
 		strcpy(send_buf_ret, send_buf);
 		cout << "寄存器超限" << endl;
-		cout << "响应报文为：" << send_buf_ret << endl;
 		return send_buf_ret;
 	}
 	else if (data_len_int * 2 != data_recv.size() || digitlength != data_recv.size()/2)
@@ -83,7 +82,6 @@ char *FUNCTION0F(string recv_str, char* send_buf, int k, vector<int>&val)
 		send_buf = (char*)send.c_str();
 		strcpy(send_buf_ret, send_buf);
 		cout << "非法数据值" << endl;
-		cout << "响应报文为：" << send_buf_ret << endl;
 		return send_buf_ret;
 	}
 	else
@@ -140,7 +138,6 @@ char *FUNCTION0F(string recv_str, char* send_buf, int k, vector<int>&val)
 					send_buf = (char*)send.c_str();
 					strcpy(send_buf_ret, send_buf);
 					cout << "非法数据值" << endl;
-					cout << "响应报文为：" << send_buf_ret << endl;
 					return send_buf_ret;
 				}
 				while (p <= surplus)
@@ -185,7 +182,6 @@ char *FUNCTION0F(string recv_str, char* send_buf, int k, vector<int>&val)
 		}*/
 		send_buf = (char*)send.c_str();
 		strcpy(send_buf_ret, send_buf);
-		cout << "响应报文为：" << send_buf_ret << endl;
 		return send_buf_ret;
 	}
 }
