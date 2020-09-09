@@ -9,6 +9,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ModbusRTU", "ModbusRTU\Modb
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ModbusTCPTest", "ModbusTCPTest\ModbusTCPTest.vcxproj", "{3E21FAE5-3DBB-407D-BA0D-961D8437D542}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ModbusRTUTest", "ModbusRTUTest\ModbusRTUTest.vcxproj", "{D6133947-F043-42F9-9AC0-D088D04A6EFF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -49,6 +51,16 @@ Global
 		{3E21FAE5-3DBB-407D-BA0D-961D8437D542}.Release|Mixed Platforms.Build.0 = Release|Win32
 		{3E21FAE5-3DBB-407D-BA0D-961D8437D542}.Release|Win32.ActiveCfg = Release|Win32
 		{3E21FAE5-3DBB-407D-BA0D-961D8437D542}.Release|Win32.Build.0 = Release|Win32
+		{D6133947-F043-42F9-9AC0-D088D04A6EFF}.Debug|Any CPU.ActiveCfg = Debug|Win32
+		{D6133947-F043-42F9-9AC0-D088D04A6EFF}.Debug|Mixed Platforms.ActiveCfg = Debug|Win32
+		{D6133947-F043-42F9-9AC0-D088D04A6EFF}.Debug|Mixed Platforms.Build.0 = Debug|Win32
+		{D6133947-F043-42F9-9AC0-D088D04A6EFF}.Debug|Win32.ActiveCfg = Debug|Win32
+		{D6133947-F043-42F9-9AC0-D088D04A6EFF}.Debug|Win32.Build.0 = Debug|Win32
+		{D6133947-F043-42F9-9AC0-D088D04A6EFF}.Release|Any CPU.ActiveCfg = Release|Win32
+		{D6133947-F043-42F9-9AC0-D088D04A6EFF}.Release|Mixed Platforms.ActiveCfg = Release|Win32
+		{D6133947-F043-42F9-9AC0-D088D04A6EFF}.Release|Mixed Platforms.Build.0 = Release|Win32
+		{D6133947-F043-42F9-9AC0-D088D04A6EFF}.Release|Win32.ActiveCfg = Release|Win32
+		{D6133947-F043-42F9-9AC0-D088D04A6EFF}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
