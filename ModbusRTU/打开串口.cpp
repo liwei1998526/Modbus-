@@ -77,7 +77,22 @@ HANDLE InitCOM(LPCTSTR Port, int baud_rate, BYTE date_bits, BYTE stop_bit, BYTE 
 	//设置串口读写时间
 	COMMTIMEOUTS CommTimeOuts;
 	GetCommTimeouts(hCom, &CommTimeOuts);
-	CommTimeOuts.ReadIntervalTimeout = 5;
+	if (baud_rate = 9600)
+	{
+		CommTimeOuts.ReadIntervalTimeout = 5;
+	}
+	else if (baud_rate = 19200)
+	{
+		CommTimeOuts.ReadIntervalTimeout = 3;
+	}
+	else if (baud_rate = 115200)
+	{
+		CommTimeOuts.ReadIntervalTimeout = 1;
+	}
+	else
+	{
+		CommTimeOuts.ReadIntervalTimeout = 5;
+	}
 	CommTimeOuts.ReadTotalTimeoutMultiplier = 1;
 	CommTimeOuts.ReadTotalTimeoutConstant =  0;
 	CommTimeOuts.WriteTotalTimeoutMultiplier = 10;
