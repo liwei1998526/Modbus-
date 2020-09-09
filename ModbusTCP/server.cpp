@@ -129,7 +129,7 @@ int main()
 		}
 		string recv_device = recv_str.substr(12, 2);
 		int device = stoi(recv_device, 0, 16);
-		if (device != 9)
+		if (device != 9 && device != 0)
 		{
 			cout << "Éè±¸ºÅ³ö´í" << endl;
 			continue;
