@@ -90,6 +90,8 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="DEtoBINTest.cpp" />
+    <ClCompile Include="DEtoHEXTest.cpp" />
     <ClCompile Include="Function01Test.cpp" />
     <ClCompile Include="Function03Test.cpp" />
     <ClCompile Include="Function0FTest.cpp" />
