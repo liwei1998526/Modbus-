@@ -2,7 +2,7 @@
 #include <Windows.h>
 #include <string>
 #include<iostream>
-#define MAX_NUMBER 300
+#define MAX_NUMBER 600
 
 
 /*******************************************************************************************
@@ -79,7 +79,7 @@ HANDLE InitCOM(LPCTSTR Port, int baud_rate, BYTE date_bits, BYTE stop_bit, BYTE 
 	GetCommTimeouts(hCom, &CommTimeOuts);
 	CommTimeOuts.ReadIntervalTimeout = 5;
 	CommTimeOuts.ReadTotalTimeoutMultiplier = 1;
-	CommTimeOuts.ReadTotalTimeoutConstant = 0;
+	CommTimeOuts.ReadTotalTimeoutConstant =  0;
 	CommTimeOuts.WriteTotalTimeoutMultiplier = 10;
 	CommTimeOuts.WriteTotalTimeoutConstant = 1000;
 	if (!SetCommTimeouts(hCom, &CommTimeOuts))

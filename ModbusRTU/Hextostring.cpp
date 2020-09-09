@@ -2,7 +2,7 @@
 #include"main.h"
 char* hex2str(UINT8 *hex, int len)
 {
-	char str_ret[300];
+	char str_ret[600];
 	char* str;
 	vector<string>Hex;
 	string ALL_data;

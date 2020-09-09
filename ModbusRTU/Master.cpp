@@ -2,7 +2,7 @@
 #include <Windows.h>
 #include <string>
 #include<iostream>
-#define MAX_NUMBER 300
+#define MAX_NUMBER 600
 char read_buf[MAX_NUMBER];
 int main()
 {
@@ -148,7 +148,7 @@ int main()
 			{
 				char*data_again;
 				data_again = (char*)send_buf.c_str();
-				SendData(H_Com, data_again, strlen(data_again));
+				//SendData(H_Com, data_again, strlen(data_again));
 				BOOL bReadOK = ReadFile(H_Com, (char*)read_buf_16, 256, &dwRead, NULL);
 			}
 			frequency--;

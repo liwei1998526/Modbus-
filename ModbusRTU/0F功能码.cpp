@@ -120,7 +120,7 @@ char* function0F(string add, string code)
 	string dat = ADU + CRC;
 	char*data;
 	data = (char*)dat.c_str();
-	char message[100];
+	char message[600];
 	memset(message, 0, sizeof(message));
 	strcpy(message, data);
 	return message;

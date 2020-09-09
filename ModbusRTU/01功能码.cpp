@@ -30,7 +30,7 @@ char* function01(string add,string code)
 	}
 	string ADU = add + code + start + sum;
 	ret = (char*)ADU.c_str();
-	unsigned char crc[255] = { 0 };
+	unsigned char crc[256] = { 0 };
 	HexstrtoByte(ret, crc, strlen(ret));
 	int CR = CRC16((unsigned char*)crc, strlen(ret) / 2);
 	string CRC = DEtoHEX(CR);
@@ -46,7 +46,7 @@ char* function01(string add,string code)
 	string dat = ADU + CRC;
 	char*data;
 	data = (char*)dat.c_str();
-	char ALL_DATA[100];
+	char ALL_DATA[600];
 	memset(ALL_DATA, 0, sizeof(ALL_DATA));
 	strcpy(ALL_DATA, data);
 	return ALL_DATA;
