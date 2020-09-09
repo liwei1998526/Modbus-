@@ -16,16 +16,15 @@ char *FUNCTION10(string recv_str, char* send_buf, int k, vector<int>&val)
 		{
 			send += recv_str[i];
 		}
+		send[8] = '0';
+		send[9] = '0';
+		send[10] = '0';
 		send[11] = '3';
 		send[14] += 8;
 		send[16] = '0';
 		send[17] = '1';
-		int b;
 		memset(send_buf, 0, sizeof(send_buf));
-		for (b = 0; b < send.size(); b++)
-		{
-			send_buf[b] = send[b];
-		}
+		send_buf = (char*)send.c_str();
 		cout << "无可用功能码" << endl;
 		cout << "响应报文为：" << send_buf << endl;
 		strcpy(send_buf_ret, send_buf);
@@ -46,6 +45,9 @@ char *FUNCTION10(string recv_str, char* send_buf, int k, vector<int>&val)
 		{
 			send += recv_str[i];
 		}
+		send[8] = '0';
+		send[9] = '0';
+		send[10] = '0';
 		send[11] = '3';
 		send[14] += 8;
 		send[16] = '0';
@@ -56,13 +58,16 @@ char *FUNCTION10(string recv_str, char* send_buf, int k, vector<int>&val)
 		cout << "响应报文为：" << send_buf_ret << endl;
 		return send_buf_ret;
 	}
-	else if (data_len_int * 2 != data_recv.size() || digit * 2 != data_recv.size())
+	else if (data_len_int * 2 != data_recv.size() || digit * 4 != data_recv.size())
 	{
 		string send;
 		for (int i = 0; i < 18; i++)
 		{
 			send += recv_str[i];
 		}
+		send[8] = '0';
+		send[9] = '0';
+		send[10] = '0';
 		send[11] = '3';
 		send[14] += 8;
 		send[16] = '0';

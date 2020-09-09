@@ -140,6 +140,8 @@ int main()
 		}
 		string recv_code = recv_str.substr(14, 2);
 		int function = stoi(recv_code, 0, 16);
+		char *send_buf_code = new char(600);
+		memset(send_buf_code, 0, sizeof(send_buf_code));
 		if (function != 1 && function != 3 && function != 15 && function != 16)
 		{
 			string send;
@@ -163,28 +165,20 @@ int main()
 		}
 		else if (code == 1 )
 		{
-			char *send_buf_code = new char(600);
-			memset(send_buf_code, 0, sizeof(send_buf_code));
 			//send_buf_code1= FUNCTION01(recv_buf, send_buf_code, m, val);
 			//FUNCTION01(recv_buf, send_buf_code, m, val);
 			strcpy(send_buf, FUNCTION01(recv_str, send_buf_code, m, val));
 		}
 		else if (code == 3 )
 		{
-			char *send_buf_code = new char(600);
-			memset(send_buf_code, 0, sizeof(send_buf_code));
 			strcpy(send_buf, FUNCTION03(recv_str, send_buf_code, m, val));
 		}
 		else if (code == 15 )
 		{
-			char *send_buf_code = new char(600);
-			memset(send_buf_code, 0, sizeof(send_buf_code));
 			strcpy(send_buf, FUNCTION0F(recv_str, send_buf_code, m, val));
 		}
 		else if (code == 16 )
 		{
-			char *send_buf_code = new char(600);
-			memset(send_buf_code, 0, sizeof(send_buf_code));
 			strcpy(send_buf, FUNCTION10(recv_str, send_buf_code, m, val));
 		}
 		//cout << "请输入回复信息:";

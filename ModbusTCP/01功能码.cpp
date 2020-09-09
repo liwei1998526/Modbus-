@@ -16,16 +16,15 @@ char *FUNCTION01(string recv_str, char* send_buf, int k, vector<int>val)
 		{
 			send += recv_str[i];
 		}
+		send[8] = '0';
+		send[9] = '0';
+		send[10] = '0';
 		send[11] = '3';
 		send[14] += 8;
 		send[16] = '0';
 		send[17] = '1';
-		int b;
 		memset(send_buf, 0, sizeof(send_buf));
-		for (b = 0; b < send.size(); b++)
-		{
-			send_buf[b] = send[b];
-		}
+		send_buf = (char*)send.c_str();
 		cout << "无可用功能码" << endl;
 		cout << "响应报文为：" << send_buf << endl;
 		strcpy(send_buf_ret, send_buf);
