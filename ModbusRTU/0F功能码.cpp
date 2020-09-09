@@ -63,7 +63,7 @@ char* function0F(string add, string code)
 			string data;
 			while (1)
 			{
-				cout << "第" << init << "到" << i + digit << " 线圈的值(16进制数)为：";
+				cout << "第" << init << "到" << i + digit-1 << " 线圈的值(16进制数)为：";
 				cin >> data;
 				int data_max = stoi(data, 0, 16);
 				if (data_max > 65535)

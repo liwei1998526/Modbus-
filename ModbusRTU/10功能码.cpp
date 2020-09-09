@@ -36,7 +36,7 @@ char* function10(string add, string code)
 		while (1)
 		{
 			cout << "第" << init << "寄存器的值(16进制)：";
-			cin >> date;
+			getline(cin, date);
 			int date_max = stoi(date, 0, 16);
 			if (date_max > 65535)
 			{
