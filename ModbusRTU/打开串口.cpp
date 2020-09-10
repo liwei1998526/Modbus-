@@ -91,7 +91,7 @@ HANDLE InitCOM(LPCTSTR Port, int baud_rate, BYTE date_bits, BYTE stop_bit, BYTE 
 	}
 	else
 	{
-		CommTimeOuts.ReadIntervalTimeout = 5;
+		CommTimeOuts.ReadIntervalTimeout = (8/baud_rate)*1.5+1;
 	}
 	CommTimeOuts.ReadTotalTimeoutMultiplier = 1;
 	CommTimeOuts.ReadTotalTimeoutConstant =  0;
