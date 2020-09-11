@@ -8,7 +8,7 @@ char *FUNCTION0F(string recv_str, char* send_buf, int k, vector<int>&val)
 	memset(send_buf_ret, 0, sizeof(send_buf_ret));
 	string recv_code = recv_str.substr(14, 2);
 	int function = stoi(recv_code, 0, 16);
-	if (function != 15)
+	if (function != 15 && function != 01)
 	{
 		string send;
 		for (int i = 0; i < 18; i++)
@@ -156,7 +156,7 @@ char *FUNCTION0F(string recv_str, char* send_buf, int k, vector<int>&val)
 			val[i - k] = ALL_DATA[h];
 			h++;
 		}
-		for (int math = k; math < k + val.size(); math++)
+		for (int math = k; math < k + ALL_DATA.size(); math++)
 		{
 			cout << "register" << " " << math << "£º" << val[math - k] << endl;
 		}

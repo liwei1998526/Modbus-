@@ -11,13 +11,22 @@ int main()
 	int code, m = 0, n = 0;
 	vector<int>val;
 	cout << "请输入功能码：";
-	cin >> co;
-	code = stoi(co, 0, 16);
+	while (1)
+	{
+		cin >> co;
+		code = stoi(co, 0, 16);
+		if (code != 1 && code != 3 && code != 15 && code != 16)
+		{
+			cout << "不支持此功能码，请重新输入：";
+			continue;
+		}
+		break;
+	}
 	if (code == 1 || code == 15)
 	{
 		WriteCoilCommand(m, n, val);
 	}
-	if (code == 3 || code == 16)
+	else if (code == 3 || code == 16)
 	{
 		WriteRigisterCommand(m, n, val);
 	}
@@ -68,6 +77,7 @@ int main()
 		cout << "设置监听状态成功！" << endl;
 	}
 	cout << "服务端正在监听连接，请稍候...." << endl;
+
 	//接受连接请求
 	len = sizeof(SOCKADDR);
 	s_accept = accept(s_server, (SOCKADDR *)&accept_addr, &len);
@@ -95,7 +105,47 @@ int main()
 		}
 		if (O == 600)
 		{
-			break;
+			int close;
+			cout << "主机断开，是否继续监听（0关闭，1继续）：";
+			while (1)
+			{
+				cin >> close;
+				if (close == 1 || close == 0)
+				{
+					break;
+				}
+				cout << "输入不规范，请重新输入：";
+				continue;
+			}
+			if (close == 0)
+			{
+				break;
+			}
+			else if (close == 1)
+			{
+				if (listen(s_server, SOMAXCONN) < 0)
+				{
+					cout << "设置监听状态失败！" << endl;
+					WSACleanup();
+				}
+				else
+				{
+					cout << "设置监听状态成功！" << endl;
+				}
+				cout << "服务端正在监听连接，请稍候...." << endl;
+			}
+			s_accept = accept(s_server, (SOCKADDR *)&accept_addr, &len);
+			if (s_accept == SOCKET_ERROR)
+			{
+				cout << "连接失败！" << endl;
+				WSACleanup();
+				return 0;
+			}
+			else
+			{
+				cout << "连接建立，准备接受数据" << endl;
+				continue;
+			}		
 		}
 		if (recv_buf_16[0] == '0')
 		{
@@ -162,21 +212,21 @@ int main()
 			cout << "无可用功能码" << endl;
 
 		}
-		else if (code == 1 )
+		else if (function == 1 )
 		{
 			//send_buf_code1= FUNCTION01(recv_buf, send_buf_code, m, val);
 			//FUNCTION01(recv_buf, send_buf_code, m, val);
 			strcpy(send_buf, FUNCTION01(recv_str, send_buf_code, m, val));
 		}
-		else if (code == 3 )
+		else if (function == 3 )
 		{
 			strcpy(send_buf, FUNCTION03(recv_str, send_buf_code, m, val));
 		}
-		else if (code == 15 )
+		else if (function == 15 )
 		{
 			strcpy(send_buf, FUNCTION0F(recv_str, send_buf_code, m, val));
 		}
-		else if (code == 16 )
+		else if (function == 16 )
 		{
 			strcpy(send_buf, FUNCTION10(recv_str, send_buf_code, m, val));
 		}

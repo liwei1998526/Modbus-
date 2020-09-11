@@ -4,49 +4,76 @@
 #include<iostream>
 #define MAX_NUMBER 600
 char read_buf[MAX_NUMBER];
+using namespace std;
 int main()
 {
 	/*按端口号链接*/
 	string COMM;
 	string send_buf;//承载输出报文数据
-	cout << "输入端口号为：";
-	string com = "com";
-	string how;
-	cin >> how;
-	COMM = com + how;
 	int Bund_rate = 0;
 	int bund;
-	cout << "1--9600" << " " << "2--14400" << " " << "3--19200" <<" "<<"4--115200"<< endl;
-	cout << "请选择波特率：";
-	cin >> bund;
-	if (bund == 1)
-	{
-		Bund_rate = 9600;
-	}
-	else if (bund == 2)
-	{
-		Bund_rate = 14400;
-	}
-	else if (bund == 3)
-	{
-		Bund_rate = 19200;
-	}
-	else if (bund == 4)
-	{
-		Bund_rate = 115200;
-	}
 	int check;
-	cout << "0--无校验" << " " << "1--奇校验" << " " << "2--偶校验" << endl;
-	cout << "输入校验位：";
-	cin >> check;
-	HANDLE H_Com = InitCOM((LPCTSTR)COMM.c_str(), Bund_rate, 8, 0, check);
-	if (H_Com == INVALID_HANDLE_VALUE)
+	HANDLE H_Com;
+	while (1)
 	{
-		cout << "初始化串口失败" << endl;
-		getchar();
-		return 0;
+		cout << "输入端口号为：";
+		string com = "com";
+		string how;
+		cin >> how;
+		COMM = com + how;
+		cout << "1--9600" << " " << "2--14400" << " " << "3--19200" << " " << "4--115200" << endl;
+		cout << "请选择波特率：";
+		cin >> bund;
+		if (bund == 1)
+		{
+			Bund_rate = 9600;
+		}
+		else if (bund == 2)
+		{
+			Bund_rate = 14400;
+		}
+		else if (bund == 3)
+		{
+			Bund_rate = 19200;
+		}
+		else if (bund == 4)
+		{
+			Bund_rate = 115200;
+		}
+		cout << "0--无校验" << " " << "1--奇校验" << " " << "2--偶校验" << endl;
+		cout << "输入校验位：";
+		cin >> check;
+		H_Com = InitCOM((LPCTSTR)COMM.c_str(), Bund_rate, 8, 0, check);
+		if (H_Com == INVALID_HANDLE_VALUE)
+		{
+			int or;
+			cout << "串口打开失败，是否结束界面(0结束，1继续)：";
+			while (1)
+			{
+				cin >> or;
+				if (or == 0 || or == 1)
+				{
+					break;
+				}
+				cout << "输入值不规范，请重新输入（0结束，1继续）：";
+				continue;
+			}
+			if (or == 1)
+			{
+				continue;
+			}
+			else if (or == 0)
+			{
+				return 0;
+			}
+		}
+		break;	
 	}
-
+	//if (H_Com == INVALID_HANDLE_VALUE)
+	//{
+	//	cout << "初始化串口失败" << endl;
+	//	getchar();
+	//}
 	char write_buf[MAX_NUMBER];
 	memset(write_buf, 0, MAX_NUMBER);
 	DWORD dwRead;
@@ -148,7 +175,7 @@ int main()
 			{
 				char*data_again;
 				data_again = (char*)send_buf.c_str();
-				//SendData(H_Com, data_again, strlen(data_again));
+				SendData(H_Com, data_again, strlen(data_again));
 				BOOL bReadOK = ReadFile(H_Com, (char*)read_buf_16, 256, &dwRead, NULL);
 			}
 			frequency--;

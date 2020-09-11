@@ -9,7 +9,7 @@ char *FUNCTION01(string recv_str, char* send_buf, int k, vector<int>val)
 	memset(send_buf_ret, 0, sizeof(send_buf_ret));
 	string recv_code = recv_str.substr(14, 2);
 	int function = stoi(recv_code, 0, 16);
-	if (function != 1)
+	if (function != 1 && function != 15)
 	{
 		string send;
 		for (int i = 0; i < 18; i++)

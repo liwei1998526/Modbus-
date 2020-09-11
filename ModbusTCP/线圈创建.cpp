@@ -18,7 +18,7 @@ void WriteCoilCommand(int &m, int &n, vector<int>&val)
 	{
 		cout << "请输入寄存器数量：";
 		cin >> n;
-		if (m + n > 9999)
+		if (m + n > 10000)
 		{
 			cout << "寄存器越界" << endl;
 			continue;
@@ -28,7 +28,7 @@ void WriteCoilCommand(int &m, int &n, vector<int>&val)
 	while (1)
 	{
 		int k;
-		cout << "请输入寄存器对应的值（0为关，1为开）：" << endl;
+		/*cout << "请输入寄存器对应的值（0为关，1为开）：" << endl;*/
 		for (k = 1; k <= n; k++)
 		{
 			int y = 0;
@@ -49,11 +49,11 @@ void WriteCoilCommand(int &m, int &n, vector<int>&val)
 		break;
 	}
 	int j = 0;
-	for (int i = m; i < m + n; i++)
+	/*for (int i = m; i < m + n; i++)
 	{
 		cout << "register" << " " << i << ":" << val[j] << endl;
 		j++;
-	}
+	}*/
 	getchar();
 }
 //int main()
