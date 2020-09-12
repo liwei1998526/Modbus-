@@ -2,20 +2,66 @@
 #include <Windows.h>
 #include <string>
 #include<iostream>
+#include<thread>
 #define MAX_NUMBER 600
 char read_buf[MAX_NUMBER];
 using namespace std;
+void Serial_port_open(HANDLE COm)
+{
+	DCB dcb;
+	while (1)
+	{
+		if(!GetCommState(COm, &dcb))
+		{
+			cout << "串口断开连接" << endl;
+			CloseHandle(COm);
+			break;
+		}
+		Sleep(1);
+	}
+	int cont;
+	cout << "是否继续连接:";
+	cin >> cont;
+	if (cont == 1)
+	{
+		/*continue*/;
+	}
+	else if (cont == 0)
+	{
+		return;
+	}
+}
 int main()
 {
 	/*按端口号链接*/
 	string COMM;
+	string COM;
 	string send_buf;//承载输出报文数据
 	int Bund_rate = 0;
 	int bund;
 	int check;
 	HANDLE H_Com;
+	HANDLE test_com;
+	string com = "com";
+	//打印所有课使用的串口。
 	while (1)
 	{
+		cout << "可使用串口：" << endl;
+		for (int port = 1; port < 100; port++)
+		{
+			COM = com + to_string(port);
+			test_com = InitCOM((LPCTSTR)COM.c_str(), 9600, 8, 0, 1);
+			if (test_com == INVALID_HANDLE_VALUE)
+			{
+				continue;
+			}
+			else
+			{
+				cout << COM << endl;
+				CloseHandle(test_com);
+				continue;
+			}
+		}
 		cout << "输入端口号为：";
 		string com = "com";
 		string how;
@@ -67,13 +113,14 @@ int main()
 				return 0;
 			}
 		}
+		else
+		{
+			cout << "串口打开成功" << endl;
+		}
 		break;	
 	}
-	//if (H_Com == INVALID_HANDLE_VALUE)
-	//{
-	//	cout << "初始化串口失败" << endl;
-	//	getchar();
-	//}
+	thread task01(Serial_port_open,H_Com);
+	task01.detach();
 	char write_buf[MAX_NUMBER];
 	memset(write_buf, 0, MAX_NUMBER);
 	DWORD dwRead;
@@ -132,7 +179,22 @@ int main()
 				cout << "发送请求报文成功" << endl;
 				break;
 			}
+			else
+			{
+				cout << "发送请求报文失败" << endl;
+				if (H_Com == INVALID_HANDLE_VALUE)
+				{
+					cout << "串口中断" << endl;
+					break;
+				}
+				PurgeComm(H_Com, PURGE_RXCLEAR | PURGE_TXCLEAR);
+				continue;
+			}
 		}
+		/*if (H_Com == INVALID_HANDLE_VALUE)
+		{
+			cout << "串口断开连接" << endl;
+		}*/
 		UINT8 read_buf_16[MAX_NUMBER];
 		memset(read_buf_16, 0, sizeof(read_buf_16));
 		BOOL bReadOK = ReadFile(H_Com,(char*)read_buf_16, 256, &dwRead, NULL);
@@ -162,17 +224,28 @@ int main()
 				HexstrtoByte(ret, crc, strlen(ret));
 				int CR = CRC16((unsigned char*)crc, strlen(ret) / 2);
 				string CRC = DEtoHEX(CR);
+				while (1)
+				{
+					if (CRC.size() < 4)
+					{
+						CRC = "0" + CRC;
+						continue;
+					}
+					break;
+				}
 				if (CRC != CRC_str)
 				{
-					cout << "数据出错" << endl;//CRC校验不通过，返回数据出错，关闭串口。
-					CloseHandle(H_Com);
-					getchar();
+					cout << "CRC校验出错" << endl;//CRC校验不通过，返回数据出错，关闭串口。
+					PurgeComm(H_Com, PURGE_RXCLEAR | PURGE_TXCLEAR);
+					break;
 				}
 				respond_massage(read_str, send_buf);
+				PurgeComm(H_Com, PURGE_RXCLEAR | PURGE_TXCLEAR);
 				break;
 			}
 			else
 			{
+				//没有接受到数据，则再发两次请求报文。
 				char*data_again;
 				data_again = (char*)send_buf.c_str();
 				SendData(H_Com, data_again, strlen(data_again));

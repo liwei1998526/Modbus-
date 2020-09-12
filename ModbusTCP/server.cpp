@@ -192,6 +192,16 @@ int main()
 		int function = stoi(recv_code, 0, 16);
 		char *send_buf_code = new char(600);
 		memset(send_buf_code, 0, sizeof(send_buf_code));
+		if ((function == 01 || function == 03) && recv_str.size() != 24)
+		{
+			cout << "数据长度错误" << endl;
+			continue;
+		}
+		else if ((function == 15 || function == 16) && recv_str.size() <= 24)
+		{
+			cout << "数据长度错误" << endl;
+			continue;
+		}
 		if (((code == 1 || code == 15) && (function != 1 && function != 15)) || ((code == 3 || code == 16) && (function != 3 && function != 16)))
 		{
 			string send;

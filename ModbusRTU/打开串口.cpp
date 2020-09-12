@@ -65,11 +65,7 @@ HANDLE InitCOM(LPCTSTR Port, int baud_rate, BYTE date_bits, BYTE stop_bit, BYTE 
 		dcb.Parity = parity;	//校验模式
 	}
 	SetCommState(hCom, &dcb);
-	if (SetCommState(hCom, &dcb) == 1)
-	{
-		cout << "串口打开成功" << endl;
-	}
-	else
+	if (SetCommState(hCom, &dcb) != 1)
 	{
 		cout << "串口打开失败" << endl;
 	}

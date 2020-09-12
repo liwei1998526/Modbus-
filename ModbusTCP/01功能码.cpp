@@ -12,6 +12,10 @@ char *FUNCTION01(string recv_str, char* send_buf, int k, vector<int>val)
 	int start_add = stoi(recv_start_add, 0, 16);
 	string recv_digit = recv_str.substr(20, 4);
 	int digit = stoi(recv_digit, 0, 16);
+	//ÅÐ¶Ï×Ö½Ú³¤¶È
+	if (recv_str.size() != 24)
+	{
+	}
 	if (((start_add + digit) > (k + val.size()) || start_add < k)||digit>2040)
 	{
 		string send;
