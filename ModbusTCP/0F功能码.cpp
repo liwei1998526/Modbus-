@@ -6,29 +6,6 @@ char *FUNCTION0F(string recv_str, char* send_buf, int k, vector<int>&val)
 {
 	char send_buf_ret[600];
 	memset(send_buf_ret, 0, sizeof(send_buf_ret));
-	string recv_code = recv_str.substr(14, 2);
-	int function = stoi(recv_code, 0, 16);
-	if (function != 15 && function != 01)
-	{
-		string send;
-		for (int i = 0; i < 18; i++)
-		{
-			send += recv_str[i];
-		}
-		send[8] = '0';
-		send[9] = '0';
-		send[10] = '0';
-		send[11] = '3';
-		send[14] += 8;
-		send[16] = '0';
-		send[17] = '1';
-		memset(send_buf, 0, sizeof(send_buf));
-		send_buf = (char*)send.c_str();
-		cout << "无可用功能码" << endl;
-		cout << "响应报文为：" << send_buf << endl;
-		strcpy(send_buf_ret, send_buf);
-		return send_buf_ret;
-	}
 	vector<int>ALL_DATA;
 	string recv_start_add = recv_str.substr(16, 4);
 	int start_add = stoi(recv_start_add, 0, 16);
@@ -46,7 +23,7 @@ char *FUNCTION0F(string recv_str, char* send_buf, int k, vector<int>&val)
 	{
 		digitlength = (digit / 8) + 1;
 	}
-	if ((start_add + digit) > (k + val.size()) || start_add < k)
+	if (((start_add + digit) > (k + val.size()) || start_add < k) || digit>2040)
 	{
 		string send;
 		for (int i = 0; i < 18; i++)
@@ -154,11 +131,8 @@ char *FUNCTION0F(string recv_str, char* send_buf, int k, vector<int>&val)
 		for (int i = start_add; i < start_add + digit; i++)
 		{
 			val[i - k] = ALL_DATA[h];
+			cout << "register" << " " << i << "：" << val[i - k] << endl;
 			h++;
-		}
-		for (int math = k; math < k + ALL_DATA.size(); math++)
-		{
-			cout << "register" << " " << math << "：" << val[math - k] << endl;
 		}
 		int length = 6;
 		string len = DEtoHEX(length);

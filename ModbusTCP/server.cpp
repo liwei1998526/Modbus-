@@ -10,6 +10,7 @@ int main()
 	string co;
 	int code, m = 0, n = 0;
 	vector<int>val;
+	cout << "01-读线圈" << " " << "03-读寄存器" << " " << "0F-写线圈" << " " << "10-写寄存器" << endl;
 	cout << "请输入功能码：";
 	while (1)
 	{
@@ -38,8 +39,7 @@ int main()
 	memset(send_buf_code, 0, sizeof(send_buf_code));*/
 	//定义发送缓冲区和接受缓冲区
 	char send_buf[600];
-	//初始化内存，避免烫烫烫
-	memset(send_buf, 0, sizeof(send_buf));
+	memset(send_buf, 0, sizeof(send_buf));//初始化内存，避免烫烫烫
 	char recv_buf[600];
 	memset(recv_buf, 0, sizeof(recv_buf));
 	UINT8 recv_buf_16[600];
@@ -91,7 +91,7 @@ int main()
 	//接收数据
 	while (1)
 	{
-		memset(recv_buf_16, 0, 600);
+		memset(recv_buf_16, 0, 600); 
 		memset(send_buf, 0, strlen(send_buf));
 		recv_len = recv(s_accept,(char*)recv_buf_16, 600, 0);
 		int O=0;
@@ -192,7 +192,7 @@ int main()
 		int function = stoi(recv_code, 0, 16);
 		char *send_buf_code = new char(600);
 		memset(send_buf_code, 0, sizeof(send_buf_code));
-		if (function != 1 && function != 3 && function != 15 && function != 16)
+		if (((code == 1 || code == 15) && (function != 1 && function != 15)) || ((code == 3 || code == 16) && (function != 3 && function != 16)))
 		{
 			string send;
 			for (int i = 0; i < 18; i++)
@@ -214,8 +214,6 @@ int main()
 		}
 		else if (function == 1 )
 		{
-			//send_buf_code1= FUNCTION01(recv_buf, send_buf_code, m, val);
-			//FUNCTION01(recv_buf, send_buf_code, m, val);
 			strcpy(send_buf, FUNCTION01(recv_str, send_buf_code, m, val));
 		}
 		else if (function == 3 )

@@ -63,7 +63,7 @@
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>C:\Users\13108\Desktop\项目\Modbus\ModbusTCP\Debug;$(VCInstallDir)UnitTest\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>01功能码.obj;03功能码.obj;0F功能码.obj;10功能码.obj;10to16.obj;10to02.obj;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>01功能码.obj;03功能码.obj;0F功能码.obj;10功能码.obj;10to16.obj;10to02.obj;HEXtoString.obj;strtoByte.obj;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -96,6 +96,7 @@
     <ClCompile Include="Function03Test.cpp" />
     <ClCompile Include="Function0FTest.cpp" />
     <ClCompile Include="Function10Test.cpp" />
+    <ClCompile Include="HextostringTest.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>

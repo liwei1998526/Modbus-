@@ -3,13 +3,22 @@
 using namespace std;
 void WriteRigisterCommand(int &m, int &n, vector<int>&val)
 {
-	cout << "ÇëÊäÈë¼Ä´æÆ÷ÆðÊ¼µØÖ·£º";
-	cin >> m;
+	while (1)
+	{
+		cout << "ÇëÊäÈë¼Ä´æÆ÷ÆðÊ¼µØÖ·£º";
+		cin >> m;
+		if (m > 65535)
+		{
+			cout << "¼Ä´æÆ÷Ô½½ç" << endl;
+			continue;
+		}
+		break;
+	}
 	while (1)
 	{
 		cout << "ÇëÊäÈë¼Ä´æÆ÷ÊýÁ¿£º";
 		cin >> n;
-		if (m + n > 10000)
+		if ( n > 10000)
 		{
 			cout << "¼Ä´æÆ÷Ô½½ç" << endl;
 			continue;

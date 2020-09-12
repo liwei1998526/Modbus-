@@ -210,8 +210,7 @@ int main()
 			break;
 		}
 		else
-			continue;
-		
+			continue;	
 	}
 	getchar();
 	return 0;

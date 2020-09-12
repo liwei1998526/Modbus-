@@ -2,33 +2,10 @@
 #include"Modbus.h"
 #include<vector>
 #include<iostream>
-using namespace std;
 char *FUNCTION10(string recv_str, char* send_buf, int k, vector<int>&val)
 {
 	char send_buf_ret[600];
 	memset(send_buf_ret, 0, sizeof(send_buf_ret));
-	string recv_code = recv_str.substr(14, 2);
-	int function = stoi(recv_code, 0, 16);
-	if (function != 16 && function != 3)
-	{
-		string send;
-		for (int i = 0; i < 18; i++)
-		{
-			send += recv_str[i];
-		}
-		send[8] = '0';
-		send[9] = '0';
-		send[10] = '0';
-		send[11] = '3';
-		send[14] += 8;
-		send[16] = '0';
-		send[17] = '1';
-		memset(send_buf, 0, sizeof(send_buf));
-		send_buf = (char*)send.c_str();
-		cout << "无可用功能码" << endl;
-		strcpy(send_buf_ret, send_buf);
-		return send_buf_ret;
-	}
 	vector<int>ALL_DATA;
 	string recv_start_add = recv_str.substr(16, 4);
 	int start_add = stoi(recv_start_add, 0, 16);
@@ -37,7 +14,7 @@ char *FUNCTION10(string recv_str, char* send_buf, int k, vector<int>&val)
 	string data_recv = recv_str.substr(26, recv_str.size() - 26);
 	string data_len = recv_str.substr(24, 2);
 	int data_len_int = stoi(data_len, 0, 16);
-	if ((start_add + digit) > (k + val.size()) || start_add < k)
+	if (((start_add + digit) > (k + val.size()) || start_add < k)||digit>123)
 	{
 		string send;
 		for (int i = 0; i < 18; i++)
@@ -89,11 +66,8 @@ char *FUNCTION10(string recv_str, char* send_buf, int k, vector<int>&val)
 		for (int i = start_add; i < start_add + digit; i++)
 		{
 			val[i - k] = ALL_DATA[h];
+			cout << "register" << " " << i << "：" << val[i - k] << endl;
 			h++;
-		}
-		for (int math = k; math < k + ALL_DATA.size(); math++)
-		{
-			cout << "register" << " " << math+1 << "：" << val[math-k+1] << endl;
 		}
 		int length = 6;
 		string len = DEtoHEX(length);

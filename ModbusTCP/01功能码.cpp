@@ -7,35 +7,12 @@ char *FUNCTION01(string recv_str, char* send_buf, int k, vector<int>val)
 {
 	char send_buf_ret[600];
 	memset(send_buf_ret, 0, sizeof(send_buf_ret));
-	string recv_code = recv_str.substr(14, 2);
-	int function = stoi(recv_code, 0, 16);
-	if (function != 1 && function != 15)
-	{
-		string send;
-		for (int i = 0; i < 18; i++)
-		{
-			send += recv_str[i];
-		}
-		send[8] = '0';
-		send[9] = '0';
-		send[10] = '0';
-		send[11] = '3';
-		send[14] += 8;
-		send[16] = '0';
-		send[17] = '1';
-		memset(send_buf, 0, sizeof(send_buf));
-		send_buf = (char*)send.c_str();
-		cout << "无可用功能码" << endl;
-		strcpy(send_buf_ret, send_buf);
-		return send_buf_ret;
-	}
-	
 	vector<string>ALL_DATA;
 	string recv_start_add = recv_str.substr(16, 4);
 	int start_add = stoi(recv_start_add, 0, 16);
 	string recv_digit = recv_str.substr(20, 4);
 	int digit = stoi(recv_digit, 0, 16);
-	if ((start_add + digit) > (k + val.size()) || start_add < k)
+	if (((start_add + digit) > (k + val.size()) || start_add < k)||digit>2040)
 	{
 		string send;
 		for (int i = 0; i < 18; i++)
