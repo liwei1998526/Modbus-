@@ -42,7 +42,7 @@ char *FUNCTION0F(string recv_str, char* send_buf, int k, vector<int>&val)
 		cout << "寄存器超限" << endl;
 		return send_buf_ret;
 	}
-	else if (data_len_int * 2 != data_recv.size() || digitlength != data_recv.size()/2)
+	else if (data_len_int * 2 != data_recv.size() || digitlength > data_recv.size()/2)
 	{
 		string send;
 		for (int i = 0; i < 18; i++)
@@ -100,22 +100,6 @@ char *FUNCTION0F(string recv_str, char* send_buf, int k, vector<int>&val)
 						continue;
 					}
 					break;
-				}
-				if (data_Bin.size() > surplus)
-				{
-					string send;
-					for (int i = 0; i < 18; i++)
-					{
-						send += recv_str[i];
-					}
-					send[11] = '3';
-					send[14] += 8;
-					send[16] = '0';
-					send[17] = '3';
-					send_buf = (char*)send.c_str();
-					strcpy(send_buf_ret, send_buf);
-					cout << "非法数据值" << endl;
-					return send_buf_ret;
 				}
 				while (p <= surplus)
 				{

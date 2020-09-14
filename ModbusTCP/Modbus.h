@@ -2,6 +2,7 @@
 #include<string>
 #include<windows.h>
 using namespace std;
+bool IsSocketClosed(int clientSocket);
 void initialization();//≥ı ºªØ
 void WriteCoilCommand(int &m, int &n, vector<int>&val);
 void WriteRigisterCommand(int &m, int &n, vector<int>&val);

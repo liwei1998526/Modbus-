@@ -1,17 +1,21 @@
 #include<iostream>
-#include<winsock.h>
+#include<winsock2.h>
 #include<string>
 #include<windows.h>
 #include"Modbus.h"
 #pragma comment(lib,"ws2_32.lib")
 using namespace std;
+static int open_com;
 int main()
 {
+	struct timeval timeout = { 3, 0 };//select等待3秒，3秒轮询.
+	fd_set fds;
 	string co;
 	int code, m = 0, n = 0;
 	vector<int>val;
 	cout << "01-读线圈" << " " << "03-读寄存器" << " " << "0F-写线圈" << " " << "10-写寄存器" << endl;
-	cout << "请输入功能码：";
+	WriteCoilCommand(m, n, val);
+	/*cout << "请输入功能码：";
 	while (1)
 	{
 		cin >> co;
@@ -22,19 +26,19 @@ int main()
 			continue;
 		}
 		break;
-	}
-	if (code == 1 || code == 15)
-	{
-		WriteCoilCommand(m, n, val);
-	}
+	}*/
+	/*if (code == 1 || code == 15)
+	{*/
+	/*}
 	else if (code == 3 || code == 16)
 	{
 		WriteRigisterCommand(m, n, val);
-	}
+	}*/
 	//定义长度变量
 	int send_len = 0;
 	int recv_len = 0;
 	int len = 0;
+	int socket_close = 0;//判断网口断开。
 	/*char send_buf_code[100];
 	memset(send_buf_code, 0, sizeof(send_buf_code));*/
 	//定义发送缓冲区和接受缓冲区
@@ -91,22 +95,17 @@ int main()
 	//接收数据
 	while (1)
 	{
+		//int ret;
+		//FD_ZERO(&fds); //每次循环都要清空集合，否则不能检测描述符变化
+		//FD_SET(s_accept, &fds); //添加描述符
+		socket_close = 1;
 		memset(recv_buf_16, 0, 600); 
 		memset(send_buf, 0, strlen(send_buf));
-		recv_len = recv(s_accept,(char*)recv_buf_16, 600, 0);
-		int O=0;
-		for (int max = 0; max < 600; max++)
-		{
-			if (recv_buf_16[max] == 0)
-			{
-				O++;
-			}
-			continue;
-		}
-		if (O == 600)
+		recv_len = recv(s_accept, (char*)recv_buf_16, sizeof(recv_buf_16), 0);
+		if (recv_len == 0 || recv_len == SOCKET_ERROR)
 		{
 			int close;
-			cout << "主机断开，是否继续监听（0关闭，1继续）：";
+			cout << "网络或主机断开，是否继续监听（0关闭，1继续）：";
 			while (1)
 			{
 				cin >> close;
@@ -145,7 +144,11 @@ int main()
 			{
 				cout << "连接建立，准备接受数据" << endl;
 				continue;
-			}		
+			}
+		}
+		else if (recv_len > 0)
+		{
+			cout << "接受数据成功" << endl;
 		}
 		if (recv_buf_16[0] == '0')
 		{
@@ -158,16 +161,7 @@ int main()
 		{
 			strcpy(recv_buf, hex2str(recv_buf_16, recv_len));
 		}
-
-		if (recv_len < 0)
-		{
-			cout << "接受失败！" << endl;
-			break;
-		}
-		else
-		{
-			cout << "客户端信息:" << recv_buf << endl;
-		}
+		cout << "客户端信息:" << recv_buf << endl;
 		string recv_str = recv_buf;
 		for (int index = 0; index < recv_str.size(); index++)
 		{
@@ -176,6 +170,14 @@ int main()
 				recv_str.erase(index, 1);
 				index--;
 			}
+		}
+		string recv_len = recv_str.substr(8, 4);
+		int expect_len = stoi(recv_len, 0, 16);
+		string recv_exprct_data = recv_str.substr(12, recv_str.size() - 12);
+		if (expect_len != (recv_exprct_data.size() / 2))
+		{
+			cout << "数据长度错误" << endl;
+			continue;
 		}
 		string recv_device = recv_str.substr(12, 2);
 		int device = stoi(recv_device, 0, 16);
@@ -202,7 +204,8 @@ int main()
 			cout << "数据长度错误" << endl;
 			continue;
 		}
-		if (((code == 1 || code == 15) && (function != 1 && function != 15)) || ((code == 3 || code == 16) && (function != 3 && function != 16)))
+		/*if (((code == 1 || code == 15) && (function != 1 && function != 15)) || ((code == 3 || code == 16) && (function != 3 && function != 16)))*/
+		if (function != 1 && function != 3 && function != 15 && function != 16)
 		{
 			string send;
 			for (int i = 0; i < 18; i++)
@@ -250,6 +253,10 @@ int main()
 			cout << "发送失败！" << endl;
 			break;
 		}
+	}
+	if (socket_close == 0)
+	{
+		cout << "网口断开" << endl;
 	}
 	//关闭套接字
 	closesocket(s_server);

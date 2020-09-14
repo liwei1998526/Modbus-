@@ -33,7 +33,7 @@ char *FUNCTION10(string recv_str, char* send_buf, int k, vector<int>&val)
 		cout << "¼Ä´æÆ÷³¬ÏÞ" << endl;
 		return send_buf_ret;
 	}
-	else if (data_len_int * 2 != data_recv.size() || digit * 4 != data_recv.size())
+	else if (data_len_int * 2 != data_recv.size() || digit * 4 > data_recv.size())
 	{
 		string send;
 		for (int i = 0; i < 18; i++)
