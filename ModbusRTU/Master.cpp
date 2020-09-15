@@ -219,14 +219,7 @@ int main()
 			{
 				if (bReadOK && (dwRead > 0))
 				{
-					if (read_buf_16[0] == '0')
-					{
-						for (int p = 0; p < 256; p++)
-						{
-							read_buf[p] = read_buf_16[p];
-						}
-					}
-					else if (read_buf_16[0] == 0x09 || read_buf_16[0] == 0)
+					if (read_buf_16[0] >= 0x00 || read_buf_16[0] <= 0x255)
 					{
 						strcpy(read_buf, hex2str(read_buf_16, dwRead));
 					}

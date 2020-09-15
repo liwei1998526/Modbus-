@@ -7,6 +7,9 @@ void respond_01(string Read_buf, string send_buf)
 	string digit_str = send_buf.substr(8, 4);
 	int digit_int = stoi(digit_str, 0, 16);
 	int n = 6;
+	//判断返回字节数。
+
+	//两两字节解析线圈。
 	while (n < Read_buf.size() - 4)
 	{
 		string data = Read_buf.substr(n, 2);
@@ -33,6 +36,10 @@ void respond_01(string Read_buf, string send_buf)
 				{
 					data_bin = "0" + data_bin;
 					continue;
+				}
+				else if (data_bin.size() > surplus)
+				{
+					data_bin.erase(0, data_bin.size() - surplus);
 				}
 				break;
 			}

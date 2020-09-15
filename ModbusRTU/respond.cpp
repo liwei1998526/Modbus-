@@ -1,22 +1,33 @@
 #include"main.h"
 void respond_massage(string read_str,string send_buf)
 {
-	string send_code = send_buf.substr(2, 2);
+	string recv_id = read_str.substr(0, 2);//返回的设备号
+	string send_id = send_buf.substr(0, 2);//请求报文设备号
+	string send_code = send_buf.substr(2, 2);//请求报文功能码
 	int send_code_int = stoi(send_code, 0, 16);
-	string respond_code = read_str.substr(2, 2);
+	string respond_code = read_str.substr(2, 2);//返回功能码
 	int respond_code_int = stoi(respond_code, 0, 16);
-	string send_math = send_buf.substr(8, 4);
+	string recv_ret = read_str.substr(4, 2);//响应报文返回字节数
+	int recv_ret_int = stoi(recv_ret, 0, 16);
+	string recv_data = read_str.substr(6, read_str.size() - 10);//响应报文数据位字符串
+	string send_math = send_buf.substr(8, 4);//请求报文读取数量
 	int send_digit = stoi(send_math, 0, 16);
-	string recv_id = read_str.substr(0, 2);
-	string send_id = send_buf.substr(0, 2);
+	//判断响应报文是否是访问的从站传回
 	if (recv_id != send_id)
 	{
 		cout << "设备号出错" << endl;
 		return;
 	}
+	//判断功能码是否正确
 	if ((respond_code_int != send_code_int) && (respond_code_int != send_code_int + 128))
 	{
 		cout << "功能码错误" << endl;
+		return;
+	}
+	//判断返回字节数是否相等。
+	if (recv_ret_int != recv_data.size() / 2)
+	{
+		cout << "返回字节数出错" << endl;
 		return;
 	}
 	if (respond_code_int >= 128)
