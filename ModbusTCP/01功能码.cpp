@@ -13,9 +13,6 @@ char *FUNCTION01(string recv_str, char* send_buf, int k, vector<int>val)
 	string recv_digit = recv_str.substr(20, 4);
 	int digit = stoi(recv_digit, 0, 16);
 	//判断字节长度
-	if (recv_str.size() != 24)
-	{
-	}
 	if (((start_add + digit) > (k + val.size()) || start_add < k)||digit>2040)
 	{
 		string send;
@@ -30,6 +27,25 @@ char *FUNCTION01(string recv_str, char* send_buf, int k, vector<int>val)
 		send_buf = (char*)send.c_str();
 		strcpy(send_buf_ret, send_buf);
 		cout << "寄存器超限" << endl;
+		return send_buf_ret;
+	}
+	else if (digit == 0)
+	{
+		string send;
+		for (int i = 0; i < 18; i++)
+		{
+			send += recv_str[i];
+		}
+		send[8] = '0';
+		send[9] = '0';
+		send[10] = '0';
+		send[11] = '3';
+		send[14] += 8;
+		send[16] = '0';
+		send[17] = '3';
+		send_buf = (char*)send.c_str();
+		strcpy(send_buf_ret, send_buf);
+		cout << "非法数据值" << endl;
 		return send_buf_ret;
 	}
 	else

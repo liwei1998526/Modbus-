@@ -23,6 +23,7 @@ char *FUNCTION0F(string recv_str, char* send_buf, int k, vector<int>&val)
 	{
 		digitlength = (digit / 8) + 1;
 	}
+	//判断请求报文数据范围是否存在
 	if (((start_add + digit) > (k + val.size()) || start_add < k) || digit>2040)
 	{
 		string send;
@@ -42,7 +43,8 @@ char *FUNCTION0F(string recv_str, char* send_buf, int k, vector<int>&val)
 		cout << "寄存器超限" << endl;
 		return send_buf_ret;
 	}
-	else if (data_len_int * 2 != data_recv.size() || digitlength > data_recv.size()/2)
+	//判断数据值是否符合正常。
+	if (data_len_int * 2 != data_recv.size() || digitlength > data_recv.size() / 2 || digit == 0)
 	{
 		string send;
 		for (int i = 0; i < 18; i++)
@@ -61,7 +63,7 @@ char *FUNCTION0F(string recv_str, char* send_buf, int k, vector<int>&val)
 		cout << "非法数据值" << endl;
 		return send_buf_ret;
 	}
-	else
+	else//正常则写入
 	{
 		int n = 26;
 		while (n < recv_str.size())
@@ -87,11 +89,20 @@ char *FUNCTION0F(string recv_str, char* send_buf, int k, vector<int>&val)
 					ALL_DATA.push_back(data);
 					p++;
 				}
-				p = 1;
+				DATA_N.clear();
+				data_Bin.clear();
 			}
 			else
 			{
-				int surplus = digit % 8;
+				int surplus;
+				if (digit % 8 == 0)
+				{
+					surplus = 8;
+				}
+				else
+				{
+					surplus = digit % 8;
+				}
 				while (1)
 				{
 					if (data_Bin.size() < surplus)

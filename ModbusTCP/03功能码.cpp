@@ -28,6 +28,25 @@ char *FUNCTION03(string recv_str, char* send_buf, int k, vector<int>val)
 		cout << "寄存器超限" << endl;
 		return send_buf_ret;
 	}
+	else if (digit == 0)
+	{
+		string send;
+		for (int i = 0; i < 18; i++)
+		{
+			send += recv_str[i];
+		}
+		send[8] = '0';
+		send[9] = '0';
+		send[10] = '0';
+		send[11] = '3';
+		send[14] += 8;
+		send[16] = '0';
+		send[17] = '3';
+		send_buf = (char*)send.c_str();
+		strcpy(send_buf_ret, send_buf);
+		cout << "非法数据值" << endl;
+		return send_buf_ret;
+	}
 	else
 	{
 		string reg;

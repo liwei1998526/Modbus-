@@ -8,32 +8,15 @@ using namespace std;
 static int open_com;
 int main()
 {
-	struct timeval timeout = { 3, 0 };//select等待3秒，3秒轮询.
-	fd_set fds;
 	string co;
 	int code, m = 0, n = 0;
-	vector<int>val;
+	vector<int>val1;
+	vector<int>val2;
 	cout << "01-读线圈" << " " << "03-读寄存器" << " " << "0F-写线圈" << " " << "10-写寄存器" << endl;
-	WriteCoilCommand(m, n, val);
-	/*cout << "请输入功能码：";
-	while (1)
-	{
-		cin >> co;
-		code = stoi(co, 0, 16);
-		if (code != 1 && code != 3 && code != 15 && code != 16)
-		{
-			cout << "不支持此功能码，请重新输入：";
-			continue;
-		}
-		break;
-	}*/
-	/*if (code == 1 || code == 15)
-	{*/
-	/*}
-	else if (code == 3 || code == 16)
-	{
-		WriteRigisterCommand(m, n, val);
-	}*/
+	WriteCoilCommand(m, n, val1);
+	cout << "线圈创建成功" << endl;
+	WriteRigisterCommand(m, n, val2);
+	cout << "寄存器创建成功" << endl;
 	//定义长度变量
 	int send_len = 0;
 	int recv_len = 0;
@@ -95,13 +78,11 @@ int main()
 	//接收数据
 	while (1)
 	{
-		//int ret;
-		//FD_ZERO(&fds); //每次循环都要清空集合，否则不能检测描述符变化
-		//FD_SET(s_accept, &fds); //添加描述符
 		socket_close = 1;
 		memset(recv_buf_16, 0, 600); 
 		memset(send_buf, 0, strlen(send_buf));
 		recv_len = recv(s_accept, (char*)recv_buf_16, sizeof(recv_buf_16), 0);
+		//判断网络是否断开以及检测主机断开信号
 		if (recv_len == 0 || recv_len == SOCKET_ERROR)
 		{
 			int close;
@@ -116,12 +97,14 @@ int main()
 				cout << "输入不规范，请重新输入：";
 				continue;
 			}
+			//当网络或主机断开后，选择关闭0,则关闭套接字，并释放dll资源。
 			if (close == 0)
 			{
 				break;
 			}
 			else if (close == 1)
 			{
+				//当网络或者主机断开后，选择继续则重新开始监听状态。
 				if (listen(s_server, SOMAXCONN) < 0)
 				{
 					cout << "设置监听状态失败！" << endl;
@@ -150,27 +133,32 @@ int main()
 		{
 			cout << "接受数据成功" << endl;
 		}
-		if (recv_buf_16[0] == '0')
+		//判断接受数据最大值
+		if (recv_len > 300)
 		{
-			for (int p = 0; p < recv_len; p++)
-			{
-				recv_buf[p] = recv_buf_16[p];
-			}
+			cout << "数据出错" << endl;
+			continue;
 		}
-		else
-		{
-			strcpy(recv_buf, hex2str(recv_buf_16, recv_len));
-		}
+		strcpy(recv_buf, hex2str(recv_buf_16, recv_len));
 		cout << "客户端信息:" << recv_buf << endl;
 		string recv_str = recv_buf;
 		for (int index = 0; index < recv_str.size(); index++)
-		{
+		{//去空格
 			if (recv_str[index] == 0x20)
 			{
 				recv_str.erase(index, 1);
 				index--;
 			}
 		}
+		//判断通信问题。
+		string signal_str = recv_str.substr(4, 4);
+		int signal_int = stoi(signal_str, 0, 16);
+		if (signal_int != 0)
+		{
+			cout << "通信协议错误" << endl;
+			continue;
+		}
+		//判断返回长度是否正确
 		string recv_len = recv_str.substr(8, 4);
 		int expect_len = stoi(recv_len, 0, 16);
 		string recv_exprct_data = recv_str.substr(12, recv_str.size() - 12);
@@ -179,6 +167,7 @@ int main()
 			cout << "数据长度错误" << endl;
 			continue;
 		}
+		//判断设备号是否正确
 		string recv_device = recv_str.substr(12, 2);
 		int device = stoi(recv_device, 0, 16);
 		if (device != 9 && device != 0)
@@ -190,6 +179,7 @@ int main()
 		{
 			return 0;
 		}
+		//判断数据长度是否正确
 		string recv_code = recv_str.substr(14, 2);
 		int function = stoi(recv_code, 0, 16);
 		char *send_buf_code = new char(600);
@@ -204,7 +194,7 @@ int main()
 			cout << "数据长度错误" << endl;
 			continue;
 		}
-		/*if (((code == 1 || code == 15) && (function != 1 && function != 15)) || ((code == 3 || code == 16) && (function != 3 && function != 16)))*/
+		//判断功能码是否正常
 		if (function != 1 && function != 3 && function != 15 && function != 16)
 		{
 			string send;
@@ -227,36 +217,30 @@ int main()
 		}
 		else if (function == 1 )
 		{
-			strcpy(send_buf, FUNCTION01(recv_str, send_buf_code, m, val));
+			strcpy(send_buf, FUNCTION01(recv_str, send_buf_code, m, val1));
 		}
 		else if (function == 3 )
 		{
-			strcpy(send_buf, FUNCTION03(recv_str, send_buf_code, m, val));
+			strcpy(send_buf, FUNCTION03(recv_str, send_buf_code, m, val2));
 		}
 		else if (function == 15 )
 		{
-			strcpy(send_buf, FUNCTION0F(recv_str, send_buf_code, m, val));
+			strcpy(send_buf, FUNCTION0F(recv_str, send_buf_code, m, val1));
 		}
 		else if (function == 16 )
 		{
-			strcpy(send_buf, FUNCTION10(recv_str, send_buf_code, m, val));
+			strcpy(send_buf, FUNCTION10(recv_str, send_buf_code, m, val2));
 		}
-		//cout << "请输入回复信息:";
-		//cin >> send_buf;
-		send_buf[13] = '9';
+		send_buf[13] = '9';//回复广播报文
 		cout << "响应报文为：" << send_buf << endl;
 		unsigned char end_data[600] = { 0 };
-		HexstrtoByte(send_buf, end_data, strlen(send_buf));
+		HexstrtoByte(send_buf, end_data, strlen(send_buf));//将string转换位hex
 		send_len = send(s_accept,(char*)end_data, strlen(send_buf)/2, 0);
 		if (send_len < 0)
 		{
 			cout << "发送失败！" << endl;
-			break;
+			continue;
 		}
-	}
-	if (socket_close == 0)
-	{
-		cout << "网口断开" << endl;
 	}
 	//关闭套接字
 	closesocket(s_server);
