@@ -6,15 +6,15 @@ char *FUNCTION0F(string recv_str, char* send_buf, int k, vector<int>&val)
 {
 	char send_buf_ret[600];
 	memset(send_buf_ret, 0, sizeof(send_buf_ret));
-	vector<int>ALL_DATA;
-	string recv_start_add = recv_str.substr(16, 4);
+	vector<int>ALL_DATA;//存放修改数据
+	string recv_start_add = recv_str.substr(16, 4);//请求报文起始地址
 	int start_add = stoi(recv_start_add, 0, 16);
-	string recv_digit = recv_str.substr(20, 4);
+	string recv_digit = recv_str.substr(20, 4);//请求报文想要修改数量
 	int digit = stoi(recv_digit, 0, 16);
-	string data_recv = recv_str.substr(26, recv_str.size() - 26);
-	string data_len = recv_str.substr(24, 2);
+	string data_recv = recv_str.substr(26, recv_str.size() - 26);//请求报文数据位
+	string data_len = recv_str.substr(24, 2);//请求报文数据长度
 	int data_len_int = stoi(data_len, 0, 16);
-	int digitlength;
+	int digitlength;//计算数据位应该有的长度
 	if (digit % 8 == 0 && digit >= 8)
 	{
 		digitlength = digit / 8;
@@ -69,10 +69,10 @@ char *FUNCTION0F(string recv_str, char* send_buf, int k, vector<int>&val)
 		while (n < recv_str.size())
 		{
 			int p = 1;
-			string DATA_N = recv_str.substr(n, 2);
+			string DATA_N = recv_str.substr(n, 2);//每2个字符进行解析
 			int data_s = stoi(DATA_N, 0, 16);
-			string data_Bin = DEtoBIN(data_s);
-			if (n + 2 < recv_str.size())
+			string data_Bin = DEtoBIN(data_s);//将其转换位2进制字符串
+			if (n + 2 < recv_str.size())//判断是否为数据位最后一个字节的字符串
 			{
 				while (1)
 				{
@@ -129,8 +129,8 @@ char *FUNCTION0F(string recv_str, char* send_buf, int k, vector<int>&val)
 			cout << "register" << " " << i << "：" << val[i - k] << endl;
 			h++;
 		}
-		int length = 6;
-		string len = DEtoHEX(length);
+		//int length = 6;
+	/*	string len = DEtoHEX(6);
 		while (1)
 		{
 			if (len.size() < 4)
@@ -139,16 +139,11 @@ char *FUNCTION0F(string recv_str, char* send_buf, int k, vector<int>&val)
 				continue;
 			}
 			break;
-		}
+		}*/
+		string len = "0006";
 		string MATA = recv_str.substr(0, 8);
 		string ADDRESS = recv_str.substr(12, 12);
 		string send = MATA + len + ADDRESS;
-		/*int space = 2;
-		while (space <= send.size())
-		{
-			send.insert(space, " ");
-			space += 3;
-		}*/
 		send_buf = (char*)send.c_str();
 		strcpy(send_buf_ret, send_buf);
 		return send_buf_ret;

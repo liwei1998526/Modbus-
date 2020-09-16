@@ -9,7 +9,7 @@ static int open_com;
 int main()
 {
 	string co;
-	int code, m = 0, n = 0;
+	int m = 0, n = 0;
 	vector<int>val1;
 	vector<int>val2;
 	cout << "01-读线圈" << " " << "03-读寄存器" << " " << "0F-写线圈" << " " << "10-写寄存器" << endl;
@@ -18,8 +18,8 @@ int main()
 	WriteRigisterCommand(m, n, val2);
 	cout << "寄存器创建成功" << endl;
 	//定义长度变量
-	int send_len = 0;
-	int recv_len = 0;
+	int send_len = 0;//发送数据长度
+	int recv_len = 0;//接受数据长度
 	int len = 0;
 	int socket_close = 0;//判断网口断开。
 	/*char send_buf_code[100];
@@ -29,7 +29,7 @@ int main()
 	memset(send_buf, 0, sizeof(send_buf));//初始化内存，避免烫烫烫
 	char recv_buf[600];
 	memset(recv_buf, 0, sizeof(recv_buf));
-	UINT8 recv_buf_16[600];
+	UINT8 recv_buf_16[600];//接受缓存区
 	memset(recv_buf_16, 0, sizeof(recv_buf_16));
 	//定义服务端套接字，接受请求套接字
 	SOCKET s_server;
@@ -37,11 +37,11 @@ int main()
 	//服务端地址客户端地址
 	SOCKADDR_IN server_addr;
 	SOCKADDR_IN accept_addr;
-	initialization();
+	initialization();//初始化套接字库
 	//填充服务端信息
 	server_addr.sin_family = AF_INET;
 	server_addr.sin_addr.S_un.S_addr = htonl(INADDR_ANY);
-	server_addr.sin_port = htons(526);
+	server_addr.sin_port = htons(526);//端口号
 	//创建套接字
 	s_server = socket(AF_INET, SOCK_STREAM, 0);
 	if (bind(s_server, (SOCKADDR *)&server_addr, sizeof(SOCKADDR)) == SOCKET_ERROR)
@@ -78,8 +78,7 @@ int main()
 	//接收数据
 	while (1)
 	{
-		socket_close = 1;
-		memset(recv_buf_16, 0, 600); 
+		memset(recv_buf_16, 0, 600); //初始化接受缓冲区
 		memset(send_buf, 0, strlen(send_buf));
 		recv_len = recv(s_accept, (char*)recv_buf_16, sizeof(recv_buf_16), 0);
 		//判断网络是否断开以及检测主机断开信号
@@ -139,7 +138,7 @@ int main()
 			cout << "数据出错" << endl;
 			continue;
 		}
-		strcpy(recv_buf, hex2str(recv_buf_16, recv_len));
+		strcpy(recv_buf, hex2str(recv_buf_16, recv_len));//将数据从hex转为char*操作
 		cout << "客户端信息:" << recv_buf << endl;
 		string recv_str = recv_buf;
 		for (int index = 0; index < recv_str.size(); index++)
@@ -182,8 +181,6 @@ int main()
 		//判断数据长度是否正确
 		string recv_code = recv_str.substr(14, 2);
 		int function = stoi(recv_code, 0, 16);
-		char *send_buf_code = new char(600);
-		memset(send_buf_code, 0, sizeof(send_buf_code));
 		if ((function == 01 || function == 03) && recv_str.size() != 24)
 		{
 			cout << "数据长度错误" << endl;
@@ -194,7 +191,9 @@ int main()
 			cout << "数据长度错误" << endl;
 			continue;
 		}
-		//判断功能码是否正常
+		char *send_buf_code = new char[600];
+		memset(send_buf_code, 0, sizeof(send_buf_code));
+		//判断功能码是否存在
 		if (function != 1 && function != 3 && function != 15 && function != 16)
 		{
 			string send;
@@ -202,6 +201,9 @@ int main()
 			{
 				send += recv_str[i];
 			}
+			send[8] = '0';
+			send[9] = '0';
+			send[10] = '0';
 			send[11] = '3';
 			send[14] += 8;
 			send[16] = '0';

@@ -7,13 +7,14 @@ char *FUNCTION10(string recv_str, char* send_buf, int k, vector<int>&val)
 	char send_buf_ret[600];
 	memset(send_buf_ret, 0, sizeof(send_buf_ret));
 	vector<int>ALL_DATA;
-	string recv_start_add = recv_str.substr(16, 4);
+	string recv_start_add = recv_str.substr(16, 4);//请求报文起始地址
 	int start_add = stoi(recv_start_add, 0, 16);
-	string recv_digit = recv_str.substr(20, 4);
+	string recv_digit = recv_str.substr(20, 4);//请求报文想要修改数量
 	int digit = stoi(recv_digit, 0, 16);
-	string data_recv = recv_str.substr(26, recv_str.size() - 26);
-	string data_len = recv_str.substr(24, 2);
+	string data_recv = recv_str.substr(26, recv_str.size() - 26);//请求报文数据位
+	string data_len = recv_str.substr(24, 2);//请求报文数据长度
 	int data_len_int = stoi(data_len, 0, 16);
+	//判断请求报文数据范围是否存在
 	if (((start_add + digit) > (k + val.size()) || start_add < k)||digit>123)
 	{
 		string send;
@@ -33,6 +34,7 @@ char *FUNCTION10(string recv_str, char* send_buf, int k, vector<int>&val)
 		cout << "寄存器超限" << endl;
 		return send_buf_ret;
 	}
+	//判断数据值是否符合正常。
 	else if (data_len_int * 2 != data_recv.size() || digit * 4 > data_recv.size() || digit == 0)
 	{
 		string send;
@@ -69,7 +71,7 @@ char *FUNCTION10(string recv_str, char* send_buf, int k, vector<int>&val)
 			cout << "register" << " " << i << "：" << val[i - k] << endl;
 			h++;
 		}
-		int length = 6;
+	/*	int length = 6;
 		string len = DEtoHEX(length);
 		while (1)
 		{
@@ -79,7 +81,8 @@ char *FUNCTION10(string recv_str, char* send_buf, int k, vector<int>&val)
 				continue;
 			}
 			break;
-		}
+		}*/
+		string len = "0006";
 		string MATA = recv_str.substr(0, 8);
 		string ADDRESS = recv_str.substr(12, 12);
 		string send = MATA + len + ADDRESS;

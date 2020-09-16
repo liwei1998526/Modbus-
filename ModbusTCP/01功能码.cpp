@@ -20,6 +20,9 @@ char *FUNCTION01(string recv_str, char* send_buf, int k, vector<int>val)
 		{
 			send += recv_str[i];
 		}
+		send[8] = '0';
+		send[9] = '0';
+		send[10] = '0';
 		send[11] = '3';
 		send[14] += 8;
 		send[16] = '0';
