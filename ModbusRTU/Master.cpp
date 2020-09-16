@@ -267,6 +267,11 @@ int main()
 				}
 				frequency--;
 			}
+			//判断串口是否关闭
+			if (open_com == 0)
+			{
+				break;
+			}//判断超时
 			if (bReadOK == false || (dwRead <= 0))
 			{
 				cout << "超时，从机断开" << endl;
