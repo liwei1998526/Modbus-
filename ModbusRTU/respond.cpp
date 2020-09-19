@@ -5,7 +5,7 @@ void respond_massage(string read_str,string send_buf)
 	int respond_code_int = stoi(respond_code, 0, 16);
 	string send_math = send_buf.substr(8, 4);//请求报文读取数量
 	int send_digit = stoi(send_math, 0, 16);
-	//判断响应报文是否是访问的从站传回
+	//判断响应报文是否有效。
 	bool effect = len_effective(read_str, send_buf);
 	if (effect == false)
 	{

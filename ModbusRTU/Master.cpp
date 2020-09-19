@@ -6,7 +6,7 @@
 #define MAX_NUMBER 600
 char read_buf[MAX_NUMBER];
 using namespace std;
-static int open_com;
+static int open_com;//监控串口状态变量
 void* Serial_port_open(HANDLE COm)
 {
 	DCB dcb;
