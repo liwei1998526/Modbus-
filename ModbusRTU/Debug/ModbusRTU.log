@@ -1,0 +1,30 @@
+﻿生成启动时间为 2020/9/19 16:21:11。
+     1>项目“C:\Users\13108\Desktop\项目\Modbus\ModbusRTU\ModbusRTU.vcxproj”在节点 2 上(Build 个目标)。
+     1>C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppBuild.targets(364,5): warning MSB8004: Output Directory does not end with a trailing slash.  This build instance will add the slash as it is required to allow proper evaluation of the Output Directory.
+     1>ClCompile:
+         E:\工具安装\VC\bin\CL.exe /c /I"C:\Users\13108\Desktop\项目\Modbus\public" /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D _CRT_SECURE_NO_WARNINGS /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt respond.cpp
+         respond.cpp
+       Link:
+         E:\工具安装\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:".\Debug\ModbusRTU.exe" /INCREMENTAL /NOLOGO /LIBPATH:"C:\Users\13108\Desktop\项目\Modbus\public\Debug" kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:".\Debug\ModbusRTU.pdb" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:".\Debug\ModbusRTU.lib" /MACHINE:X86 Debug\01Respond.obj
+         "Debug\01功能码.obj"
+         Debug\03Respond.obj
+         "Debug\0F功能码.obj"
+         Debug\10to02.obj
+         Debug\10to16.obj
+         "Debug\10功能码.obj"
+         Debug\build_send_buf.obj
+         Debug\CRC_16.obj
+         Debug\Hextostring.obj
+         Debug\len_effective.obj
+         Debug\Master.obj
+         Debug\open_com.obj
+         Debug\respond.obj
+         Debug\send.obj
+         Debug\strtoByte.obj
+         "Debug\打开串口.obj"
+         ModbusRTU.vcxproj -> C:\Users\13108\Desktop\项目\Modbus\ModbusRTU\.\Debug\ModbusRTU.exe
+     1>已完成生成项目“C:\Users\13108\Desktop\项目\Modbus\ModbusRTU\ModbusRTU.vcxproj”(Build 个目标)的操作。
+
+生成成功。
+
+已用时间 00:00:04.38

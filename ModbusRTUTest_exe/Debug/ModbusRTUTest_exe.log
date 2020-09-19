@@ -1,0 +1,14 @@
+﻿生成启动时间为 2020/9/19 16:21:12。
+     1>项目“C:\Users\13108\Desktop\项目\Modbus\ModbusRTUTest_exe\ModbusRTUTest_exe.vcxproj”在节点 3 上(Build 个目标)。
+     1>ClCompile:
+         E:\工具安装\VC\bin\CL.exe /c /I"C:\Users\13108\Desktop\项目\Modbus\ModbusRTU" /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D _CRT_SECURE_NO_WARNINGS /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt TEXT.cpp
+         TEXT.cpp
+       Link:
+         E:\工具安装\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\13108\Desktop\项目\Modbus\Debug\ModbusRTUTest_exe.exe" /INCREMENTAL /NOLOGO /LIBPATH:"C:\Users\13108\Desktop\项目\Modbus\ModbusRTU\Debug" "01功能码.obj" "0F功能码.obj" "10功能码.obj" respond.obj strtoByte.obj CRC_16.obj 10to16.obj 10to02.obj Hextostring.obj 01Respond.obj 03Respond.obj kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\13108\Desktop\项目\Modbus\Debug\ModbusRTUTest_exe.pdb" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\13108\Desktop\项目\Modbus\Debug\ModbusRTUTest_exe.lib" /MACHINE:X86 Debug\TEXT.obj
+     1>respond.obj : error LNK2019: 无法解析的外部符号 "bool __cdecl len_effective(class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >,class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >)" (?len_effective@@YA_NV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@0@Z)，该符号在函数 "void __cdecl respond_massage(class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >,class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >)" (?respond_massage@@YAXV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@0@Z) 中被引用
+     1>C:\Users\13108\Desktop\项目\Modbus\Debug\ModbusRTUTest_exe.exe : fatal error LNK1120: 1 个无法解析的外部命令
+     1>已完成生成项目“C:\Users\13108\Desktop\项目\Modbus\ModbusRTUTest_exe\ModbusRTUTest_exe.vcxproj”(Build 个目标)的操作 - 失败。
+
+生成失败。
+
+已用时间 00:00:05.27

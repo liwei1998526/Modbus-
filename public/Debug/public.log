@@ -1,0 +1,23 @@
+﻿生成启动时间为 2020/9/19 16:21:12。
+     1>项目“C:\Users\13108\Desktop\项目\Modbus\public\public.vcxproj”在节点 4 上(Build 个目标)。
+     1>C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppBuild.targets(364,5): warning MSB8004: Output Directory does not end with a trailing slash.  This build instance will add the slash as it is required to allow proper evaluation of the Output Directory.
+     1>ClCompile:
+         E:\工具安装\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D _CRT_SECURE_NO_WARNINGS /D _WINDLL /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt 10to02.cpp 10to16.cpp HEXtostring.cpp strtoByte.cpp
+         strtoByte.cpp
+         HEXtostring.cpp
+     1>c:\users\13108\desktop\项目\modbus\public\hextostring.cpp(28): warning C4018: “<”: 有符号/无符号不匹配
+     1>c:\users\13108\desktop\项目\modbus\public\hextostring.cpp(34): warning C4172: 返回局部变量或临时变量的地址
+         10to16.cpp
+         10to02.cpp
+         正在生成代码...
+       Link:
+         E:\工具安装\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:".\Debug\public.dll" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:".\Debug\public.pdb" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:".\Debug\public.lib" /MACHINE:X86 /DLL Debug\10to02.obj
+         Debug\10to16.obj
+         Debug\HEXtostring.obj
+         Debug\strtoByte.obj
+         public.vcxproj -> C:\Users\13108\Desktop\项目\Modbus\public\.\Debug\public.dll
+     1>已完成生成项目“C:\Users\13108\Desktop\项目\Modbus\public\public.vcxproj”(Build 个目标)的操作。
+
+生成成功。
+
+已用时间 00:00:06.75
