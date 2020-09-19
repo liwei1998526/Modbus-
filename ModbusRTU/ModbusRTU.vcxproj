@@ -40,6 +40,8 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <OutDir>.\Debug</OutDir>
+    <IncludePath>C:\Users\13108\Desktop\项目\Modbus\public;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Users\13108\Desktop\项目\Modbus\public\Debug;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -48,9 +50,12 @@
       <SDLCheck>true</SDLCheck>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\Users\13108\Desktop\项目\Modbus\public;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>C:\Users\13108\Desktop\项目\Modbus\public\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -75,9 +80,12 @@
     <ClCompile Include="10to02.cpp" />
     <ClCompile Include="10to16.cpp" />
     <ClCompile Include="10功能码.cpp" />
+    <ClCompile Include="build_send_buf.cpp" />
     <ClCompile Include="CRC_16.cpp" />
     <ClCompile Include="Hextostring.cpp" />
+    <ClCompile Include="len_effective.cpp" />
     <ClCompile Include="Master.cpp" />
+    <ClCompile Include="open_com.cpp" />
     <ClCompile Include="respond.cpp" />
     <ClCompile Include="send.cpp" />
     <ClCompile Include="strtoByte.cpp" />

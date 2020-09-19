@@ -57,6 +57,15 @@
     <ClCompile Include="打开串口.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="len_effective.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="open_com.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="build_send_buf.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
