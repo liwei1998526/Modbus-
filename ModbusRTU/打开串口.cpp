@@ -97,7 +97,5 @@ HANDLE InitCOM(LPCTSTR Port, int baud_rate, BYTE date_bits, BYTE stop_bit, BYTE 
 	{
 		return INVALID_HANDLE_VALUE;
 	}
-	//创建线程，读取数据
-	//HANDLE hReadCommThread = (HANDLE)CreateThread(NULL, 0, CommProc, &hCom, 0, NULL);
 	return hCom;
 }

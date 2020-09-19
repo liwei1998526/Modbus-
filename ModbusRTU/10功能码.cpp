@@ -37,6 +37,11 @@ char* function10(string add, string code)
 		{
 			cout << "第" << init << "寄存器的值(16进制)：";
 			cin >> date;
+			if (date.size() > 4)
+			{
+				cout << "输入数据不规范，请重新输入" << endl;
+				continue;
+			}
 			int date_max = stoi(date, 0, 16);
 			if (date_max > 65535)
 			{

@@ -40,7 +40,7 @@ char* function0F(string add, string code)
 				cout << "第" << init << "到" << init + 7 << " 线圈的值(16进制数)为：";
 				cin >> data;
 				int data_max = stoi(data, 0, 16);
-				if (data_max > 65535)
+				if (data_max > 65535 || data.size() > 2)
 				{
 					cout << "输入不规范，请重新输入" << endl;
 					continue;
@@ -65,6 +65,11 @@ char* function0F(string add, string code)
 			{
 				cout << "第" << init << "到" << i + digit-1 << " 线圈的值(16进制数)为：";
 				cin >> data;
+				if (data.size() > 2)
+				{
+					cout << "输入数据不规范，请重新输入" << endl;
+					continue;
+				}
 				int data_max = stoi(data, 0, 16);
 				if (data_max > 65535)
 				{

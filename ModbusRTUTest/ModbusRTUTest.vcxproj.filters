@@ -29,5 +29,8 @@
     <ClCompile Include="CRCTest.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="len_effectiveTest.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
