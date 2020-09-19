@@ -22,15 +22,6 @@ string DEtoHEX(int n)
 		}
 		ch = hex[m - 1] + ch;
 	}
-	/*while (1)
-	{
-	if (ch.size() != 4)
-	{
-	ch = "0" + ch;
-	continue;
-	}
-	break;
-	}*/
 	return ch;
 }
 //int main()

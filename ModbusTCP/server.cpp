@@ -9,21 +9,20 @@ static int open_com;
 int main()
 {
 	string co;
-	int m = 0, n = 0;
-	vector<int>val1;
-	vector<int>val2;
+	int m1 = 0, n1 = 0;
+	int m2 = 0, n2 = 0;
+	vector<int>val1;//存储线圈的值
+	vector<int>val2;//存储寄存器的值
 	cout << "01-读线圈" << " " << "03-读寄存器" << " " << "0F-写线圈" << " " << "10-写寄存器" << endl;
-	WriteCoilCommand(m, n, val1);
+	WriteCoilCommand(m1, n1, val1);
 	cout << "线圈创建成功" << endl;
-	WriteRigisterCommand(m, n, val2);
+	WriteRigisterCommand(m2, n2, val2);
 	cout << "寄存器创建成功" << endl;
 	//定义长度变量
 	int send_len = 0;//发送数据长度
 	int recv_len = 0;//接受数据长度
 	int len = 0;
 	int socket_close = 0;//判断网口断开。
-	/*char send_buf_code[100];
-	memset(send_buf_code, 0, sizeof(send_buf_code));*/
 	//定义发送缓冲区和接受缓冲区
 	char send_buf[600];
 	memset(send_buf, 0, sizeof(send_buf));//初始化内存，避免烫烫烫
@@ -149,89 +148,26 @@ int main()
 				index--;
 			}
 		}
-		//判断通信问题。
-		string signal_str = recv_str.substr(4, 4);
-		int signal_int = stoi(signal_str, 0, 16);
-		if (signal_int != 0)
-		{
-			cout << "通信协议错误" << endl;
-			continue;
-		}
-		//判断返回长度是否正确
-		string recv_len = recv_str.substr(8, 4);
-		int expect_len = stoi(recv_len, 0, 16);
-		string recv_exprct_data = recv_str.substr(12, recv_str.size() - 12);
-		if (expect_len != (recv_exprct_data.size() / 2))
-		{
-			cout << "数据长度错误" << endl;
-			continue;
-		}
-		//判断设备号是否正确
-		string recv_device = recv_str.substr(12, 2);
-		int device = stoi(recv_device, 0, 16);
-		if (device != 9 && device != 0)
-		{
-			cout << "设备号出错" << endl;
-			continue;
-		}
-		if (recv_str.size() <= 14)
-		{
-			return 0;
-		}
-		//判断数据长度是否正确
 		string recv_code = recv_str.substr(14, 2);
 		int function = stoi(recv_code, 0, 16);
-		if ((function == 01 || function == 03) && recv_str.size() != 24)
+		bool effective = DATA_effective(recv_str);//判断数据是否有效
+		if (effective == false)
 		{
-			cout << "数据长度错误" << endl;
-			continue;
-		}
-		else if ((function == 15 || function == 16) && recv_str.size() <= 24)
-		{
-			cout << "数据长度错误" << endl;
+			cout << "数据无效,不做处理" << endl;
 			continue;
 		}
 		char *send_buf_code = new char[600];
 		memset(send_buf_code, 0, sizeof(send_buf_code));
-		//判断功能码是否存在
-		if (function != 1 && function != 3 && function != 15 && function != 16)
+		memset(send_buf, 0, sizeof(send_buf));
+		bool send_suc = respond(recv_str, send_buf_code, m1, m2, val1, val2);//处理请求报文
+		if (send_suc == true)
 		{
-			string send;
-			for (int i = 0; i < 18; i++)
-			{
-				send += recv_str[i];
-			}
-			send[8] = '0';
-			send[9] = '0';
-			send[10] = '0';
-			send[11] = '3';
-			send[14] += 8;
-			send[16] = '0';
-			send[17] = '1';
-			int b;
-			memset(send_buf, 0, sizeof(send_buf));
-			for (b = 0; b < send.size(); b++)
-			{
-				send_buf[b] = send[b];
-			}
-			cout << "无可用功能码" << endl;
-
+			strcpy(send_buf, send_buf_code);
 		}
-		else if (function == 1 )
+		else
 		{
-			strcpy(send_buf, FUNCTION01(recv_str, send_buf_code, m, val1));
-		}
-		else if (function == 3 )
-		{
-			strcpy(send_buf, FUNCTION03(recv_str, send_buf_code, m, val2));
-		}
-		else if (function == 15 )
-		{
-			strcpy(send_buf, FUNCTION0F(recv_str, send_buf_code, m, val1));
-		}
-		else if (function == 16 )
-		{
-			strcpy(send_buf, FUNCTION10(recv_str, send_buf_code, m, val2));
+			cout << "数据无效" << endl;
+			continue;
 		}
 		send_buf[13] = '9';//回复广播报文
 		cout << "响应报文为：" << send_buf << endl;

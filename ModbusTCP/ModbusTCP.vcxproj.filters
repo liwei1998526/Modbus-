@@ -51,6 +51,12 @@
     <ClCompile Include="initialization.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="DATA_Effective.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="respond.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Modbus.h">

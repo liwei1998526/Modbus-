@@ -7,11 +7,12 @@ char *FUNCTION03(string recv_str, char* send_buf, int k, vector<int>val)
 {
 	char send_buf_ret[600];
 	memset(send_buf_ret, 0, sizeof(send_buf_ret));
-	vector<string>ALL_DATA;
-	string recv_start_add = recv_str.substr(16, 4);
+	vector<string>ALL_DATA;//用以存储输出的16进制数据位数据
+	string recv_start_add = recv_str.substr(16, 4);//请求报文起始地址
 	int start_add = stoi(recv_start_add, 0, 16);
-	string recv_digit = recv_str.substr(20, 4);
+	string recv_digit = recv_str.substr(20, 4);//请求报文修改寄存器数量
 	int digit = stoi(recv_digit, 0, 16);
+	//检测请求报文读取范围是否在设定范围之内
 	if (((start_add + digit) > (k + val.size()) || start_add < k )||digit>123)
 	{
 		string send;
@@ -28,7 +29,8 @@ char *FUNCTION03(string recv_str, char* send_buf, int k, vector<int>val)
 		cout << "寄存器超限" << endl;
 		return send_buf_ret;
 	}
-	else if (digit == 0)
+	//检测读取个数是否为0
+	if (digit == 0)
 	{
 		string send;
 		for (int i = 0; i < 18; i++)
